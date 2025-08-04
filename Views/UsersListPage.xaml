@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TamaGo.Views.UsersListPage"
+             Title="Gestión de Usuarios"
+             BackgroundColor="#F5F5F5">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*,Auto">
+        
+        <!-- Header con búsqueda -->
+        <VerticalStackLayout Grid.Row="0" Padding="20,10" BackgroundColor="White" Spacing="10">
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                <Label Text="👥" FontSize="30"/>
+                <Label Text="Gestión de Usuarios" 
+                       FontSize="24" 
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"/>
+            </HorizontalStackLayout>
+            
+            <SearchBar x:Name="SearchBar"
+                       Placeholder="Buscar por nombre, email o username..."
+                       BackgroundColor="#F0F0F0"
+                       TextChanged="OnSearchTextChanged"/>
+            
+            <!-- Botón agregar usuario -->
+            <Button Text="+ Agregar Usuario"
+                    BackgroundColor="#5865F2"
+                    TextColor="White"
+                    CornerRadius="8"
+                    HeightRequest="40"
+                    Clicked="OnAddUserClicked"/>
+        </VerticalStackLayout>
+        
+        <!-- Lista de usuarios -->
+        <RefreshView Grid.Row="1" 
+                     x:Name="UsersRefreshView"
+                     IsRefreshing="{Binding IsRefreshing}"
+                     Refreshing="OnRefreshing">
+            <ScrollView>
+                <VerticalStackLayout Padding="20" Spacing="15">
+                    
+                    <!-- Indicador de carga -->
+                    <ActivityIndicator x:Name="LoadingIndicator"
+                                       IsRunning="True"
+                                       IsVisible="True"
+                                       Color="#5865F2"
+                                       VerticalOptions="CenterAndExpand"
+                                       HorizontalOptions="CenterAndExpand"/>
+                    
+                    <!-- Lista de usuarios -->
+                    <CollectionView x:Name="UsersCollectionView"
+                                    ItemsSource="{Binding FilteredUsers}"
+                                    IsVisible="False">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BackgroundColor="White" 
+                                        Padding="15" 
+                                        Margin="0,0,0,10"
+                                        StrokeThickness="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="10"/>
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnUserTapped" 
+                                                              CommandParameter="{Binding .}"/>
+                                    </Border.GestureRecognizers>
+                                    
+                                    <Grid ColumnDefinitions="60,*,Auto" ColumnSpacing="15">
+                                        <!-- Avatar -->
+                                        <Border Grid.Column="0" 
+                                                BackgroundColor="#E0E0E0" 
+                                                WidthRequest="60"
+                                                HeightRequest="60"
+                                                StrokeThickness="0">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="30"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="{Binding FirstName, Converter={StaticResource FirstLetterConverter}}" 
+                                                   FontSize="24" 
+                                                   FontAttributes="Bold"
+                                                   TextColor="#5865F2"
+                                                   HorizontalOptions="Center" 
+                                                   VerticalOptions="Center"/>
+                                        </Border>
+                                        
+                                        <!-- Información del usuario -->
+                                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="3">
+                                            <Label FontAttributes="Bold" FontSize="16">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding FirstName}"/>
+                                                        <Span Text=" "/>
+                                                        <Span Text="{Binding LastName}"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Text="{Binding Username}" 
+                                                   TextColor="#5865F2" 
+                                                   FontSize="14"/>
+                                            <Label Text="{Binding Email}" 
+                                                   TextColor="#666666" 
+                                                   FontSize="12"/>
+                                        </VerticalStackLayout>
+                                        
+                                        <!-- Acciones -->
+                                        <HorizontalStackLayout Grid.Column="2" 
+                                                               VerticalOptions="Center" 
+                                                               Spacing="10">
+                                            <Button Text="✏️"
+                                                    BackgroundColor="Transparent"
+                                                    TextColor="#5865F2"
+                                                    FontSize="20"
+                                                    WidthRequest="40"
+                                                    HeightRequest="40"
+                                                    Clicked="OnEditClicked"
+                                                    CommandParameter="{Binding .}"/>
+                                            <Button Text="🗑️"
+                                                    BackgroundColor="Transparent"
+                                                    TextColor="#FF4444"
+                                                    FontSize="20"
+                                                    WidthRequest="40"
+                                                    HeightRequest="40"
+                                                    Clicked="OnDeleteClicked"
+                                                    CommandParameter="{Binding .}"/>
+                                        </HorizontalStackLayout>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        
+                        <!-- Estado vacío -->
+                        <CollectionView.EmptyView>
+                            <VerticalStackLayout Padding="40" Spacing="20">
+                                <Label Text="😔" FontSize="60" HorizontalOptions="Center"/>
+                                <Label Text="No se encontraron usuarios" 
+                                       FontSize="18" 
+                                       FontAttributes="Bold"
+                                       HorizontalOptions="Center"/>
+                                <Label Text="Intenta con otros términos de búsqueda" 
+                                       FontSize="14" 
+                                       TextColor="#666666"
+                                       HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+                    
+                </VerticalStackLayout>
+            </ScrollView>
+        </RefreshView>
+        
+        <!-- Bottom Navigation -->
+        <Grid Grid.Row="2" 
+              BackgroundColor="White" 
+              ColumnDefinitions="*,*,*,*,*" 
+              HeightRequest="60"
+              Padding="10,5">
+            <VerticalStackLayout Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="🏠" FontSize="24" TextColor="#999999"/>
+                <Label Text="Inicio" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="👥" FontSize="24" TextColor="#5865F2"/>
+                <Label Text="Usuarios" FontSize="10" TextColor="#5865F2"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="🗺️" FontSize="24" TextColor="#999999"/>
+                <Label Text="Mapa" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="3" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="📋" FontSize="24" TextColor="#999999"/>
+                <Label Text="Planes" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="4" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="👤" FontSize="24" TextColor="#999999"/>
+                <Label Text="Perfil" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+        </Grid>
+        
+    </Grid>
+    </ContentPage.Content>
+</ContentPage>
