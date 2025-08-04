@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TamaGo.Views.LoginPage"
+             Title="TamaGo!"
+             BackgroundColor="#F5F5F5">
+    
+    <ContentPage.Content>
+        <Grid>
+        <ScrollView>
+            <VerticalStackLayout Spacing="20" Padding="30" VerticalOptions="Center">
+                
+                <!-- Logo -->
+                <Border BackgroundColor="#FF6B35" 
+                        StrokeThickness="0"
+                        HeightRequest="150"
+                        WidthRequest="150"
+                        HorizontalOptions="Center">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="10,10" Radius="5" Opacity="0.3"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                        <Label Text="🌴" FontSize="60" HorizontalOptions="Center"/>
+                        <Label Text="TamaGo!" 
+                               TextColor="White" 
+                               FontSize="24" 
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+                
+                <!-- Login Form -->
+                <Label Text="Ingresa tu nombre de usuario:"
+                       FontSize="14"
+                       TextColor="#666666"/>
+                
+                <Entry x:Name="UsernameEntry"
+                       Placeholder="Ej: juan_pura_vida"
+                       BackgroundColor="White"/>
+                
+                <Label Text="Ingresa tu contraseña:"
+                       FontSize="14"
+                       TextColor="#666666"/>
+                
+                <Entry x:Name="PasswordEntry"
+                       Placeholder="••••••••"
+                       IsPassword="True"
+                       BackgroundColor="White"/>
+                
+                <Button x:Name="LoginButton"
+                        Text="Continuar"
+                        BackgroundColor="#5865F2"
+                        TextColor="White"
+                        CornerRadius="8"
+                        HeightRequest="50"
+                        Clicked="OnLoginClicked"/>
+                
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                    <Label Text="¿No tienes cuenta?"
+                           TextColor="#666666"
+                           VerticalOptions="Center"/>
+                    <Label Text="Sign up"
+                           TextColor="#5865F2"
+                           TextDecorations="Underline"
+                           VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSignUpTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+                
+                <Label Text="Made with ❤️ by ULACIT Students"
+                       TextColor="#999999"
+                       FontSize="12"
+                       HorizontalOptions="Center"
+                       Margin="0,20,0,0"/>
+                
+            </VerticalStackLayout>
+        </ScrollView>
+        
+        <!-- Loading Overlay -->
+        <Grid x:Name="LoadingOverlay" 
+              BackgroundColor="#80000000" 
+              IsVisible="False">
+            <Border BackgroundColor="White" 
+                    WidthRequest="200" 
+                    HeightRequest="100"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                    <ActivityIndicator IsRunning="True" Color="#5865F2"/>
+                    <Label x:Name="LoadingLabel" Text="Verificando..." TextColor="#666666"/>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+    </ContentPage.Content>
+</ContentPage>

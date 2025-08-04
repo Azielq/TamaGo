@@ -1,0 +1,122 @@
+# .gitignore for .NET MAUI projects targeting .NET 9.0
+# Based on GitHub’s VisualStudio and .NET templates, with extra rules for MAUI mobile platforms
+
+##############################
+# Core build outputs
+##############################
+bin/
+obj/
+
+# VS/IDE metadata
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.idea/
+.vscode/
+*.code-workspace
+
+# Rider & ReSharper
+*.sln.iml
+*.[Rr]e[Ss]harper*/
+*_ReSharper*/
+*.DotSettings.user
+
+##############################
+# NuGet & tooling
+##############################
+packages/
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+
+##############################
+# Logs & diagnostics
+##############################
+*.log
+*.dmp
+*.stacktrace
+
+##############################
+# Configuration files (local‑only)
+##############################
+appsettings.*.json
+secrets.json
+*.pfx
+*.p12
+
+##############################
+# Hot Reload & Telemetry caches
+##############################
+*.hotreload.rdb
+*.aps
+
+##############################
+# MAUI platform‑specific artifacts
+##############################
+# Android
+**/Platforms/Android/bin/
+**/Platforms/Android/obj/
+*.apk
+*.ap_
+*.aab
+*.dex
+*.aar
+*.so
+*.jar
+
+# iOS / Mac Catalyst
+**/Platforms/iOS/build/
+**/Platforms/iOS/obj/
+**/Platforms/MacCatalyst/build/
+**/Platforms/MacCatalyst/obj/
+*.app
+*.ipa
+*.xcuserstate
+*.xcworkspace
+*.xcuserdata/
+DerivedData/
+
+# Windows
+**/Platforms/Windows/bin/
+**/Platforms/Windows/obj/
+*.msix
+*.msixbundle
+*.appx
+*.appxbundle
+
+# Tizen
+**/Platforms/Tizen/bin/
+**/Platforms/Tizen/obj/
+*.tpk
+
+##############################
+# Test & coverage outputs
+##############################
+TestResults/
+coverage/
+coverage*.json
+lcov*.info
+
+##############################
+# Miscellaneous OS files
+##############################
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+
+##############################
+# Patch/merge artefacts
+##############################
+*.orig
+*.rej
+
+##############################
+# Temporary files
+##############################
+*.tmp
+*.temp
+~$*

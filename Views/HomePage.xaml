@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TamaGo.Views.HomePage"
+             Title="TamaGo!"
+             BackgroundColor="#F5F5F5">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*,Auto">
+        
+        <!-- Header con búsqueda -->
+        <VerticalStackLayout Grid.Row="0" Padding="20,10" BackgroundColor="White">
+            <SearchBar Placeholder="Buscar planes en Tamarindo"
+                       BackgroundColor="#F0F0F0"/>
+        </VerticalStackLayout>
+        
+        <!-- Contenido principal -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="20" Padding="20">
+                
+                <!-- Categorías -->
+                <Grid ColumnDefinitions="*,*,*" RowDefinitions="80" ColumnSpacing="15">
+                    <Border Grid.Column="0" BackgroundColor="White" Padding="10" StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label Text="🏖️" FontSize="30" HorizontalOptions="Center"/>
+                            <Label Text="Playas" FontSize="12" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                    
+                    <Border Grid.Column="1" BackgroundColor="White" Padding="10" StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label Text="🏊" FontSize="30" HorizontalOptions="Center"/>
+                            <Label Text="Tours" FontSize="12" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                    
+                    <Border Grid.Column="2" BackgroundColor="White" Padding="10" StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label Text="🍴" FontSize="30" HorizontalOptions="Center"/>
+                            <Label Text="Restaurantes" FontSize="12" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+                
+                <!-- Lista de lugares -->
+                <Label Text="Lugares populares" FontSize="20" FontAttributes="Bold"/>
+                
+                <Border BackgroundColor="White" Padding="15" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Grid ColumnDefinitions="100,*" ColumnSpacing="15">
+                        <Border Grid.Column="0" 
+                                BackgroundColor="#E0E0E0" 
+                                HeightRequest="100"
+                                Padding="0"
+                                StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            <Label Text="🏄" FontSize="40" 
+                                   HorizontalOptions="Center" 
+                                   VerticalOptions="Center"/>
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                            <Label Text="Iguana Surf" FontAttributes="Bold" FontSize="16"/>
+                            <Label Text="Surf" TextColor="#666666" FontSize="14"/>
+                            <HorizontalStackLayout Spacing="5">
+                                <Label Text="⭐ 5.0" TextColor="#FFA500" FontSize="12"/>
+                                <Label Text="$30" TextColor="#5865F2" FontSize="12" FontAttributes="Bold"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+                
+                <Border BackgroundColor="White" Padding="15" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Grid ColumnDefinitions="100,*" ColumnSpacing="15">
+                        <Border Grid.Column="0" 
+                                BackgroundColor="#E0E0E0" 
+                                HeightRequest="100"
+                                Padding="0"
+                                StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            <Label Text="🐴" FontSize="40" 
+                                   HorizontalOptions="Center" 
+                                   VerticalOptions="Center"/>
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                            <Label Text="Horse Beach Tours" FontAttributes="Bold" FontSize="16"/>
+                            <Label Text="Actividades" TextColor="#666666" FontSize="14"/>
+                            <HorizontalStackLayout Spacing="5">
+                                <Label Text="⭐ 5.0" TextColor="#FFA500" FontSize="12"/>
+                                <Label Text="$25" TextColor="#5865F2" FontSize="12" FontAttributes="Bold"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+                
+            </VerticalStackLayout>
+        </ScrollView>
+        
+        <!-- Bottom Navigation -->
+        <Grid Grid.Row="2" 
+              BackgroundColor="White" 
+              ColumnDefinitions="*,*,*,*,*" 
+              HeightRequest="60"
+              Padding="10,5">
+            <VerticalStackLayout Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="🏠" FontSize="24"/>
+                <Label Text="Inicio" FontSize="10"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="❤️" FontSize="24"/>
+                <Label Text="Favoritos" FontSize="10"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="🗺️" FontSize="24"/>
+                <Label Text="Mapa" FontSize="10"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="3" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="📋" FontSize="24"/>
+                <Label Text="Planes" FontSize="10"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="4" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="👤" FontSize="24"/>
+                <Label Text="Perfil" FontSize="10"/>
+            </VerticalStackLayout>
+        </Grid>
+        
+    </Grid>
+    </ContentPage.Content>
+</ContentPage>
