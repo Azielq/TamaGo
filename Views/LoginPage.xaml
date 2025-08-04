@@ -40,6 +40,7 @@
                 
                 <Entry x:Name="UsernameEntry"
                        Placeholder="Ej: juan_pura_vida"
+                       TextColor="#666666"
                        BackgroundColor="White"/>
                 
                 <Label Text="Ingresa tu contraseña:"
@@ -49,6 +50,7 @@
                 <Entry x:Name="PasswordEntry"
                        Placeholder="••••••••"
                        IsPassword="True"
+                       TextColor="#666666"
                        BackgroundColor="White"/>
                 
                 <Button x:Name="LoginButton"

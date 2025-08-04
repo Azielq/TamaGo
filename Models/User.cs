@@ -1,38 +1,37 @@
 using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
+using System.Text.Json.Serialization;   // ← añade esto
 
 namespace TamaGo.Models;
 
 [Table("users")]
 public class User : BaseModel
 {
-    [PrimaryKey("id")]
-    public int Id { get; set; }
+    /* ---------- PK ---------- */
+    [PrimaryKey("id_user", false)]
+    public int IdUser { get; set; }
 
-    [Column("username")]
-    public string Username { get; set; }
+    /* ---------- Datos básicos ---------- */
+    [Column("firstname")]  public string FirstName  { get; set; }
+    [Column("lastname")]   public string LastName   { get; set; }
+    [Column("username")]   public string Username   { get; set; }   // NUEVO
+    [Column("email")]      public string Email      { get; set; }
 
-    [Column("email")]
-    public string Email { get; set; }
-        
-    [Column("password_hash")]
-    public string PasswordHash { get; set; }
+    /* ---------- Seguridad ---------- */
+    [Column("passwordhash")]   public string PasswordHash { get; set; }
 
-    [Column("full_name")]
-    public string FullName { get; set; }
+    /* ---------- Perfil ---------- */
+    [Column("profilepicture")] public string ProfilePicture { get; set; }
 
-    [Column("phone_number")]
-    public string PhoneNumber { get; set; }
+    [Column("country")]    public string  Country   { get; set; }   // NUEVO (nullable)
+    [Column("phone")]      public string  Phone     { get; set; }   // NUEVO (nullable)
+    [Column("birthdate")]  public DateTime? BirthDate { get; set; } // NUEVO (nullable)
 
-    [Column("date_of_birth")]
-    public DateTime? DateOfBirth { get; set; }
+    /* ---------- Timestamps ---------- */
+    [Column("created_at")] public DateTime CreatedAt { get; set; }
+    [Column("updated_at")] public DateTime UpdatedAt { get; set; }
 
-    [Column("country")]
-    public string Country { get; set; }
-
-    [Column("created_at")]
-    public DateTime CreatedAt { get; set; }
-
-    [Column("updated_at")]
-    public DateTime UpdatedAt { get; set; }
+    
+    
+    
 }

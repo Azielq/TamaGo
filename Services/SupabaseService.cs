@@ -16,6 +16,7 @@ public class SupabaseService
             {
                 AutoConnectRealtime = false,
                 AutoRefreshToken = true,
+                
             };
                 
             _supabaseClient = new Client(

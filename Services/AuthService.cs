@@ -40,7 +40,7 @@ public class AuthService
                 
                 var response = await client
                     .From<User>()
-                    .Where(u => u.Username == username)
+                    .Where(u => u.Username == username || u.Email == username)
                     .Where(u => u.PasswordHash == passwordHash)
                     .Get();
                 
@@ -91,8 +91,6 @@ public class AuthService
                 
                 // Crear nuevo usuario
                 newUser.PasswordHash = HashPassword(password);
-                newUser.CreatedAt = DateTime.UtcNow;
-                newUser.UpdatedAt = DateTime.UtcNow;
                 
                 var response = await client
                     .From<User>()

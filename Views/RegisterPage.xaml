@@ -12,48 +12,35 @@
                 
                 <Label Text="Crea una cuenta"
                        FontSize="28"
+                       TextColor="#666666"
                        FontAttributes="Bold"
                        HorizontalOptions="Center"
                        Margin="0,20,0,10"/>
                 
-                <Button Text="Crear Cuenta"
-                        BackgroundColor="#5865F2"
-                        TextColor="White"
-                        CornerRadius="8"
-                        HeightRequest="50"/>
                 
-                <Label Text="o"
-                       HorizontalOptions="Center"
-                       TextColor="#999999"/>
-                
-                <Button Text="📱 Continuar con Apple"
-                        BackgroundColor="White"
-                        TextColor="Black"
-                        BorderColor="#E0E0E0"
-                        BorderWidth="1"
-                        CornerRadius="8"
-                        HeightRequest="50"/>
-                
-                <Button Text="🔍 Continuar con Google"
-                        BackgroundColor="White"
-                        TextColor="Black"
-                        BorderColor="#E0E0E0"
-                        BorderWidth="1"
-                        CornerRadius="8"
-                        HeightRequest="50"/>
                 
                 <BoxView Color="#E0E0E0" HeightRequest="1" Margin="0,10"/>
                 
+
                 <Label Text="Ingresa tu nombre:"
                        FontSize="14"
                        TextColor="#666666"/>
-                <Entry x:Name="NameEntry"
+                <Entry x:Name="FirstNameEntry"
+                       TextColor="#666666"
+                       BackgroundColor="White"/>
+
+                <Label Text="Ingresa tu apellido:"
+                       FontSize="14"
+                       TextColor="#666666"/>
+                <Entry x:Name="LastNameEntry"
+                       TextColor="#666666"
                        BackgroundColor="White"/>
                 
                 <Label Text="Selecciona tu país de origen:"
                        FontSize="14"
                        TextColor="#666666"/>
                 <Picker x:Name="CountryPicker"
+                        TextColor="#666666"
                         BackgroundColor="White">
                     <Picker.Items>
                         <x:String>Costa Rica</x:String>
@@ -69,6 +56,7 @@
                        TextColor="#666666"/>
                 <Entry x:Name="PhoneEntry"
                        Placeholder="+506 8888 1234"
+                       TextColor="#666666"
                        BackgroundColor="White"
                        Keyboard="Telephone"/>
                 
@@ -76,12 +64,14 @@
                        FontSize="14"
                        TextColor="#666666"/>
                 <DatePicker x:Name="BirthDatePicker"
+                            TextColor="#666666"
                             BackgroundColor="White"/>
                 
                 <Label Text="Ingresa tu nombre de usuario:"
                        FontSize="14"
                        TextColor="#666666"/>
                 <Entry x:Name="UsernameEntry"
+                       TextColor="#666666"
                        Placeholder="Ej: juan_pura_vida"
                        BackgroundColor="White"/>
                 
@@ -90,6 +80,7 @@
                        TextColor="#666666"/>
                 <Entry x:Name="PasswordEntry"
                        IsPassword="True"
+                       TextColor="#666666"
                        BackgroundColor="White"/>
                 
                 <Label Text="Repite tu contraseña:"
@@ -97,6 +88,7 @@
                        TextColor="#666666"/>
                 <Entry x:Name="ConfirmPasswordEntry"
                        IsPassword="True"
+                       TextColor="#666666"
                        BackgroundColor="White"/>
                 
                 <Button x:Name="RegisterButton"

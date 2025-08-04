@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TamaGo.Views.MenuPage"
+             Title="TamaGo!"
+             BackgroundColor="#F5F5F5">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*,Auto">
+        
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" Padding="20,10" BackgroundColor="White">
+            <Label Text="¡Hola, Bienvenido!" 
+                   FontSize="24" 
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+            <Label Text="¿Qué deseas hacer hoy?" 
+                   FontSize="14" 
+                   TextColor="#666666"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+        
+        <!-- Contenido principal -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="20" Padding="20">
+                
+                <!-- Opciones principales en grid -->
+                <Grid RowDefinitions="120,120" ColumnDefinitions="*,*" RowSpacing="15" ColumnSpacing="15">
+                    
+                    <!-- Explorar destinos -->
+                    <Border Grid.Row="0" Grid.Column="0" BackgroundColor="White" Padding="15" StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnExploreTapped"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                            <Label Text="🌴" FontSize="40" HorizontalOptions="Center"/>
+                            <Label Text="Explorar" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Label Text="Destinos" FontSize="12" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                    
+                    <!-- Mis reservas -->
+                    <Border Grid.Row="0" Grid.Column="1" BackgroundColor="White" Padding="15" StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBookingsTapped"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                            <Label Text="📋" FontSize="40" HorizontalOptions="Center"/>
+                            <Label Text="Mis" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Label Text="Reservas" FontSize="12" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                    
+                    <!-- Mi perfil -->
+                    <Border Grid.Row="1" Grid.Column="0" BackgroundColor="White" Padding="15" StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                            <Label Text="👤" FontSize="40" HorizontalOptions="Center"/>
+                            <Label Text="Mi" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Label Text="Perfil" FontSize="12" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                    
+                    <!-- Cerrar sesión -->
+                    <Border Grid.Row="1" Grid.Column="1" BackgroundColor="#5865F2" Padding="15" StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLogoutClicked"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                            <Label Text="🚪" FontSize="40" HorizontalOptions="Center"/>
+                            <Label Text="Cerrar" FontSize="14" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
+                            <Label Text="Sesión" FontSize="12" TextColor="White" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+                
+                <!-- Sección de actividad reciente -->
+                <Label Text="Actividad reciente" FontSize="20" FontAttributes="Bold" Margin="0,20,0,0"/>
+                
+                <Border BackgroundColor="White" Padding="15" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="🎉 ¡Bienvenido a TamaGo!" FontAttributes="Bold" FontSize="16"/>
+                        <Label Text="Explora los mejores tours y actividades en Tamarindo" TextColor="#666666" FontSize="14"/>
+                        <Label Text="Comienza explorando nuestros destinos destacados" TextColor="#5865F2" FontSize="12"/>
+                    </VerticalStackLayout>
+                </Border>
+                
+            </VerticalStackLayout>
+        </ScrollView>
+        
+        <!-- Bottom Navigation -->
+        <Grid Grid.Row="2" 
+              BackgroundColor="White" 
+              ColumnDefinitions="*,*,*,*,*" 
+              HeightRequest="60"
+              Padding="10,5">
+            <VerticalStackLayout Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="🏠" FontSize="24" TextColor="#5865F2"/>
+                <Label Text="Inicio" FontSize="10" TextColor="#5865F2"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="❤️" FontSize="24" TextColor="#999999"/>
+                <Label Text="Favoritos" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="🗺️" FontSize="24" TextColor="#999999"/>
+                <Label Text="Mapa" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="3" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="📋" FontSize="24" TextColor="#999999"/>
+                <Label Text="Planes" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="4" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="👤" FontSize="24" TextColor="#999999"/>
+                <Label Text="Perfil" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+        </Grid>
+        
+    </Grid>
+    </ContentPage.Content>
+</ContentPage>

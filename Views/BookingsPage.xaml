@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TamaGo.Views.BookingsPage"
+             Title="Mis Reservas"
+             BackgroundColor="#F5F5F5">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*,Auto">
+        
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" Padding="20,10" BackgroundColor="White">
+            <Label Text="Mis Reservas" 
+                   FontSize="24" 
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+            <Label Text="Gestiona tus tours y actividades" 
+                   FontSize="14" 
+                   TextColor="#666666"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+        
+        <!-- Contenido principal -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="20" Padding="20">
+                
+                <!-- Tabs de estado -->
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <Border BackgroundColor="#5865F2" Padding="15,8" StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20"/>
+                        </Border.StrokeShape>
+                        <Label Text="Activas (0)" TextColor="White" FontSize="14"/>
+                    </Border>
+                    
+                    <Border BackgroundColor="White" Padding="15,8" StrokeThickness="1" Stroke="#E0E0E0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20"/>
+                        </Border.StrokeShape>
+                        <Label Text="Pasadas (0)" TextColor="#666666" FontSize="14"/>
+                    </Border>
+                    
+                    <Border BackgroundColor="White" Padding="15,8" StrokeThickness="1" Stroke="#E0E0E0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20"/>
+                        </Border.StrokeShape>
+                        <Label Text="Canceladas (0)" TextColor="#666666" FontSize="14"/>
+                    </Border>
+                </HorizontalStackLayout>
+                
+                <!-- Estado vacío con ilustración -->
+                <Border BackgroundColor="White" Padding="30" StrokeThickness="0" Margin="0,40,0,0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="20">
+                        <Label Text="🎒" FontSize="80" HorizontalOptions="Center"/>
+                        <Label Text="No tienes reservas activas" 
+                               FontSize="18" 
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"/>
+                        <Label Text="¡Explora nuestros increíbles tours y reserva tu próxima aventura!" 
+                               FontSize="14" 
+                               TextColor="#666666"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"/>
+                        <Button Text="Explorar Tours"
+                                BackgroundColor="#5865F2"
+                                TextColor="White"
+                                CornerRadius="8"
+                                HeightRequest="44"
+                                WidthRequest="150"
+                                HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+                
+                <!-- Ejemplo de reserva (comentado para cuando haya datos) -->
+                <!--
+                <Border BackgroundColor="White" Padding="15" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Grid ColumnDefinitions="100,*,Auto" ColumnSpacing="15">
+                        <Border Grid.Column="0" 
+                                BackgroundColor="#E0E0E0" 
+                                HeightRequest="100"
+                                Padding="0"
+                                StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            <Label Text="🏄" FontSize="40" 
+                                   HorizontalOptions="Center" 
+                                   VerticalOptions="Center"/>
+                        </Border>
+                        
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="5">
+                            <Label Text="Clase de Surf" FontAttributes="Bold" FontSize="16"/>
+                            <Label Text="📅 15 Dic 2024 • 9:00 AM" TextColor="#666666" FontSize="12"/>
+                            <Label Text="👥 2 personas • $60 total" TextColor="#666666" FontSize="12"/>
+                            <Border BackgroundColor="#E8F5E9" Padding="5,2" HorizontalOptions="Start" StrokeThickness="0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10"/>
+                                </Border.StrokeShape>
+                                <Label Text="✓ Confirmada" TextColor="#4CAF50" FontSize="11"/>
+                            </Border>
+                        </VerticalStackLayout>
+                        
+                        <VerticalStackLayout Grid.Column="2" VerticalOptions="Center">
+                            <Label Text=">" FontSize="20" TextColor="#999999"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+                -->
+                
+                <!-- Tips informativos -->
+                <Label Text="Información útil" FontSize="18" FontAttributes="Bold" Margin="0,20,0,0"/>
+                
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
+                    <Border Grid.Column="0" BackgroundColor="#FFF3E0" Padding="15" StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="📱" FontSize="30" HorizontalOptions="Center"/>
+                            <Label Text="Confirmación" FontAttributes="Bold" FontSize="12" HorizontalOptions="Center"/>
+                            <Label Text="Recibirás un email con los detalles" 
+                                   FontSize="11" 
+                                   TextColor="#666666" 
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                    
+                    <Border Grid.Column="1" BackgroundColor="#E3F2FD" Padding="15" StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="⏰" FontSize="30" HorizontalOptions="Center"/>
+                            <Label Text="Puntualidad" FontAttributes="Bold" FontSize="12" HorizontalOptions="Center"/>
+                            <Label Text="Llega 15 min antes de tu tour" 
+                                   FontSize="11" 
+                                   TextColor="#666666" 
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+                
+            </VerticalStackLayout>
+        </ScrollView>
+        
+        <!-- Bottom Navigation -->
+        <Grid Grid.Row="2" 
+              BackgroundColor="White" 
+              ColumnDefinitions="*,*,*,*,*" 
+              HeightRequest="60"
+              Padding="10,5">
+            <VerticalStackLayout Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="🏠" FontSize="24" TextColor="#999999"/>
+                <Label Text="Inicio" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="❤️" FontSize="24" TextColor="#999999"/>
+                <Label Text="Favoritos" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="🗺️" FontSize="24" TextColor="#999999"/>
+                <Label Text="Mapa" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="3" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="📋" FontSize="24" TextColor="#5865F2"/>
+                <Label Text="Planes" FontSize="10" TextColor="#5865F2"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="4" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="👤" FontSize="24" TextColor="#999999"/>
+                <Label Text="Perfil" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+        </Grid>
+        
+    </Grid>
+    </ContentPage.Content>
+</ContentPage>

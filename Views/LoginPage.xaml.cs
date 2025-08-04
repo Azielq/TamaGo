@@ -14,32 +14,34 @@ public partial class LoginPage : ContentPage
 
     async void OnLoginClicked(object sender, EventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(UsernameEntry.Text) || 
+        if (string.IsNullOrWhiteSpace(UsernameEntry.Text) ||
             string.IsNullOrWhiteSpace(PasswordEntry.Text))
         {
             await DisplayAlert("Error", "Por favor complete todos los campos", "OK");
             return;
         }
 
-        // Mostrar loading
+        // ⬇️ Mostrar loading
         LoadingOverlay.IsVisible = true;
-        LoadingLabel.Text = "Verificando credenciales...";
+        LoadingLabel.Text = "Verificando credenciales…";
         LoginButton.IsEnabled = false;
-        
+
         try
         {
             var (success, message) = await _authService.LoginAsync(
-                UsernameEntry.Text.Trim(), 
+                UsernameEntry.Text.Trim(),
                 PasswordEntry.Text);
-            
+
             if (success)
             {
-                var homePage = App.ServiceProvider.GetRequiredService<HomePage>();
+                // ✅ Oculta el overlay ANTES de navegar
+                LoadingOverlay.IsVisible = false;
+
+                var homePage = App.ServiceProvider.GetRequiredService<MenuPage>();
                 await Navigation.PushAsync(homePage);
-                
-                // Limpiar campos
-                UsernameEntry.Text = "";
-                PasswordEntry.Text = "";
+
+                UsernameEntry.Text = string.Empty;
+                PasswordEntry.Text = string.Empty;
             }
             else
             {
@@ -48,12 +50,15 @@ public partial class LoginPage : ContentPage
         }
         finally
         {
-            // Ocultar loading
-            LoadingOverlay.IsVisible = false;
+            // 🔄 Siempre re-habilita y oculta, ocurra lo que ocurra
             LoginButton.IsEnabled = true;
+            LoadingOverlay.IsVisible = false;
         }
     }
-
+    
+    
+    
+    
     async void OnSignUpTapped(object sender, EventArgs e)
     {
         var registerPage = App.ServiceProvider.GetRequiredService<RegisterPage>();
