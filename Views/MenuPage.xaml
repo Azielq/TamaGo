@@ -13,6 +13,7 @@
             <Label Text="¡Hola, Bienvenido!" 
                    FontSize="24" 
                    FontAttributes="Bold"
+                   TextColor="#333333"
                    HorizontalOptions="Center"/>
             <Label Text="¿Qué deseas hacer hoy?" 
                    FontSize="14" 
@@ -37,8 +38,8 @@
                         </Border.GestureRecognizers>
                         <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
                             <Label Text="🌴" FontSize="40" HorizontalOptions="Center"/>
-                            <Label Text="Explorar" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
-                            <Label Text="Destinos" FontSize="12" HorizontalOptions="Center"/>
+                            <Label Text="Explorar" FontSize="14" FontAttributes="Bold" TextColor="#333333" HorizontalOptions="Center"/>
+                            <Label Text="Destinos" FontSize="12" TextColor="#666666" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Border>
                     
@@ -52,8 +53,8 @@
                         </Border.GestureRecognizers>
                         <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
                             <Label Text="📋" FontSize="40" HorizontalOptions="Center"/>
-                            <Label Text="Mis" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
-                            <Label Text="Reservas" FontSize="12" HorizontalOptions="Center"/>
+                            <Label Text="Mis" FontSize="14" FontAttributes="Bold" TextColor="#333333" HorizontalOptions="Center"/>
+                            <Label Text="Reservas" FontSize="12" TextColor="#666666" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Border>
                     
@@ -64,8 +65,8 @@
                         </Border.StrokeShape>
                         <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
                             <Label Text="👤" FontSize="40" HorizontalOptions="Center"/>
-                            <Label Text="Mi" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
-                            <Label Text="Perfil" FontSize="12" HorizontalOptions="Center"/>
+                            <Label Text="Mi" FontSize="14" FontAttributes="Bold" TextColor="#333333" HorizontalOptions="Center"/>
+                            <Label Text="Perfil" FontSize="12" TextColor="#666666" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Border>
                     
@@ -86,14 +87,14 @@
                 </Grid>
                 
                 <!-- Sección de actividad reciente -->
-                <Label Text="Actividad reciente" FontSize="20" FontAttributes="Bold" Margin="0,20,0,0"/>
+                <Label Text="Actividad reciente" FontSize="20" FontAttributes="Bold" TextColor="#333333" Margin="0,20,0,0"/>
                 
                 <Border BackgroundColor="White" Padding="15" StrokeThickness="0">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
                     <VerticalStackLayout Spacing="10">
-                        <Label Text="🎉 ¡Bienvenido a TamaGo!" FontAttributes="Bold" FontSize="16"/>
+                        <Label Text="🎉 ¡Bienvenido a TamaGo!" FontAttributes="Bold" FontSize="16" TextColor="#333333"/>
                         <Label Text="Explora los mejores tours y actividades en Tamarindo" TextColor="#666666" FontSize="14"/>
                         <Label Text="Comienza explorando nuestros destinos destacados" TextColor="#5865F2" FontSize="12"/>
                     </VerticalStackLayout>

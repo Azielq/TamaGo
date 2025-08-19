@@ -21,6 +21,8 @@ public static class MauiProgram
         // Registrar servicios
         builder.Services.AddSingleton<SupabaseService>();
         builder.Services.AddSingleton<AuthService>();
+        builder.Services.AddSingleton<DestinationService>();
+        builder.Services.AddSingleton<TourService>();
         
         // Registrar App
         builder.Services.AddSingleton<App>();
@@ -32,6 +34,11 @@ public static class MauiProgram
         builder.Services.AddTransient<MenuPage>();
         builder.Services.AddTransient<DestinationsPage>();
         builder.Services.AddTransient<BookingsPage>();
+        
+        // Registrar ViewModels
+        builder.Services.AddTransient<ViewModels.DestinationsPageViewModel>();
+        builder.Services.AddTransient<ViewModels.DestinationDetailPageViewModel>();
+        builder.Services.AddTransient<ViewModels.TourDetailPageViewModel>();
 
 #if DEBUG
         builder.Logging.AddDebug();

@@ -1,234 +1,289 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TamaGo.Views.DestinationsPage"
-             Title="Destinos"
-             BackgroundColor="#F5F5F5">
-    <ContentPage.Content>
-        <Grid RowDefinitions="Auto,*,Auto">
+             Title="Destinos">
+    
+    <Grid RowDefinitions="Auto,*">
         
         <!-- Header con búsqueda y filtros -->
-        <VerticalStackLayout Grid.Row="0" Padding="20,10" BackgroundColor="White" Spacing="10">
-            <SearchBar Placeholder="Buscar destinos en Tamarindo"
-                       BackgroundColor="#F0F0F0"/>
+        <VerticalStackLayout Grid.Row="0" BackgroundColor="White" Padding="20,10" Spacing="15">
+            
+            <!-- Título -->
+            <Label Text="Descubre Tamarindo" 
+                   FontSize="24" 
+                   FontAttributes="Bold" 
+                   TextColor="#333333"/>
+            
+            <!-- Barra de búsqueda -->
+            <SearchBar x:Name="SearchBar" 
+                       Placeholder="Buscar destinos..."
+                       SearchCommand="{Binding SearchCommand}"
+                       SearchCommandParameter="{Binding Source={x:Reference SearchBar}, Path=Text}"
+                       Text="{Binding SearchText}"/>
             
             <!-- Filtros de categoría -->
             <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
                 <HorizontalStackLayout Spacing="10">
-                    <Border BackgroundColor="#5865F2" Padding="10,5" StrokeThickness="0">
+                    
+                    <Border Padding="15,8" StrokeThickness="1" BackgroundColor="{StaticResource PrimaryColor}" Stroke="{StaticResource PrimaryColor}">
                         <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="15"/>
+                            <RoundRectangle CornerRadius="20"/>
                         </Border.StrokeShape>
-                        <Label Text="Todos" TextColor="White" FontSize="12"/>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CategorySelectedCommand}" CommandParameter="Todos"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="Todos" FontSize="14" TextColor="White"/>
                     </Border>
                     
-                    <Border BackgroundColor="White" Padding="10,5" StrokeThickness="1" Stroke="#E0E0E0">
+                    <Border Padding="15,8" StrokeThickness="1" BackgroundColor="White" Stroke="{StaticResource BorderColor}">
                         <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="15"/>
+                            <RoundRectangle CornerRadius="20"/>
                         </Border.StrokeShape>
-                        <Label Text="🏖️ Playas" FontSize="12"/>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CategorySelectedCommand}" CommandParameter="Playa"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="🏖️ Playas" FontSize="14" TextColor="#333333"/>
                     </Border>
                     
-                    <Border BackgroundColor="White" Padding="10,5" StrokeThickness="1" Stroke="#E0E0E0">
+                    <Border Padding="15,8" StrokeThickness="1" BackgroundColor="White" Stroke="{StaticResource BorderColor}">
                         <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="15"/>
+                            <RoundRectangle CornerRadius="20"/>
                         </Border.StrokeShape>
-                        <Label Text="🏄 Surf" FontSize="12"/>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CategorySelectedCommand}" CommandParameter="Surf"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="🏄 Surf" FontSize="14" TextColor="#333333"/>
                     </Border>
                     
-                    <Border BackgroundColor="White" Padding="10,5" StrokeThickness="1" Stroke="#E0E0E0">
+                    <Border Padding="15,8" StrokeThickness="1" BackgroundColor="White" Stroke="{StaticResource BorderColor}">
                         <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="15"/>
+                            <RoundRectangle CornerRadius="20"/>
                         </Border.StrokeShape>
-                        <Label Text="🐴 Tours" FontSize="12"/>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CategorySelectedCommand}" CommandParameter="Tour"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="🐴 Tours" FontSize="14" TextColor="#333333"/>
                     </Border>
                     
-                    <Border BackgroundColor="White" Padding="10,5" StrokeThickness="1" Stroke="#E0E0E0">
+                    <Border Padding="15,8" StrokeThickness="1" BackgroundColor="White" Stroke="{StaticResource BorderColor}">
                         <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="15"/>
+                            <RoundRectangle CornerRadius="20"/>
                         </Border.StrokeShape>
-                        <Label Text="🌴 Naturaleza" FontSize="12"/>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CategorySelectedCommand}" CommandParameter="Naturaleza"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="🌴 Naturaleza" FontSize="14" TextColor="#333333"/>
                     </Border>
+                    
+                    <Border Padding="15,8" StrokeThickness="1" BackgroundColor="White" Stroke="{StaticResource BorderColor}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CategorySelectedCommand}" CommandParameter="Mirador"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="🏔️ Miradores" FontSize="14" TextColor="#333333"/>
+                    </Border>
+                    
                 </HorizontalStackLayout>
             </ScrollView>
+            
         </VerticalStackLayout>
         
-        <!-- Lista de destinos -->
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout Spacing="20" Padding="20">
-                
-                <!-- Destinos destacados -->
-                <Label Text="Destinos destacados" FontSize="20" FontAttributes="Bold"/>
-                
-                <!-- Tarjeta de destino 1 -->
-                <Border BackgroundColor="White" Padding="0" StrokeThickness="0">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="10"/>
-                    </Border.StrokeShape>
-                    <Grid RowDefinitions="180,Auto">
-                        <!-- Imagen -->
-                        <Border Grid.Row="0" 
-                                BackgroundColor="#E0E0E0" 
-                                HeightRequest="180"
-                                Padding="0"
-                                StrokeThickness="0">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="10,10,0,0"/>
-                            </Border.StrokeShape>
-                            <Grid>
-                                <Label Text="🏖️" FontSize="60" 
-                                       HorizontalOptions="Center" 
-                                       VerticalOptions="Center"/>
-                                <!-- Badge de categoría -->
-                                <Border BackgroundColor="#5865F2" 
-                                        Padding="8,4" 
-                                        HorizontalOptions="Start" 
-                                        VerticalOptions="Start"
-                                        Margin="10"
-                                        StrokeThickness="0">
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="12"/>
-                                    </Border.StrokeShape>
-                                    <Label Text="Playa" TextColor="White" FontSize="12"/>
-                                </Border>
-                            </Grid>
-                        </Border>
-                        
-                        <!-- Información -->
-                        <VerticalStackLayout Grid.Row="1" Padding="15" Spacing="5">
-                            <Label Text="Playa Tamarindo" FontAttributes="Bold" FontSize="18"/>
-                            <Label Text="La playa principal con aguas cristalinas perfectas para surf y natación" 
-                                   TextColor="#666666" 
-                                   FontSize="14"/>
-                            <HorizontalStackLayout Spacing="10">
-                                <Label Text="⭐ 4.8" TextColor="#FFA500" FontSize="12"/>
-                                <Label Text="•" TextColor="#999999"/>
-                                <Label Text="📍 Centro" TextColor="#666666" FontSize="12"/>
-                                <Label Text="•" TextColor="#999999"/>
-                                <Label Text="🏄 Surf disponible" TextColor="#5865F2" FontSize="12"/>
-                            </HorizontalStackLayout>
-                        </VerticalStackLayout>
-                    </Grid>
-                </Border>
-                
-                <!-- Tarjeta de destino 2 -->
-                <Border BackgroundColor="White" Padding="0" StrokeThickness="0">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="10"/>
-                    </Border.StrokeShape>
-                    <Grid RowDefinitions="180,Auto">
-                        <!-- Imagen -->
-                        <Border Grid.Row="0" 
-                                BackgroundColor="#E0E0E0" 
-                                HeightRequest="180"
-                                Padding="0"
-                                StrokeThickness="0">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="10,10,0,0"/>
-                            </Border.StrokeShape>
-                            <Grid>
-                                <Label Text="🌊" FontSize="60" 
-                                       HorizontalOptions="Center" 
-                                       VerticalOptions="Center"/>
-                                <!-- Badge de categoría -->
-                                <Border BackgroundColor="#5865F2" 
-                                        Padding="8,4" 
-                                        HorizontalOptions="Start" 
-                                        VerticalOptions="Start"
-                                        Margin="10"
-                                        StrokeThickness="0">
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="12"/>
-                                    </Border.StrokeShape>
-                                    <Label Text="Playa" TextColor="White" FontSize="12"/>
-                                </Border>
-                            </Grid>
-                        </Border>
-                        
-                        <!-- Información -->
-                        <VerticalStackLayout Grid.Row="1" Padding="15" Spacing="5">
-                            <Label Text="Playa Langosta" FontAttributes="Bold" FontSize="18"/>
-                            <Label Text="Playa tranquila ideal para familias, con piscinas naturales durante marea baja" 
-                                   TextColor="#666666" 
-                                   FontSize="14"/>
-                            <HorizontalStackLayout Spacing="10">
-                                <Label Text="⭐ 4.9" TextColor="#FFA500" FontSize="12"/>
-                                <Label Text="•" TextColor="#999999"/>
-                                <Label Text="📍 2km Sur" TextColor="#666666" FontSize="12"/>
-                                <Label Text="•" TextColor="#999999"/>
-                                <Label Text="👨‍👩‍👧‍👦 Familiar" TextColor="#5865F2" FontSize="12"/>
-                            </HorizontalStackLayout>
-                        </VerticalStackLayout>
-                    </Grid>
-                </Border>
-                
-                <!-- Más destinos -->
-                <Label Text="Otros lugares de interés" FontSize="18" FontAttributes="Bold" Margin="0,10,0,0"/>
-                
-                <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
-                    <!-- Mini tarjeta 1 -->
-                    <Border Grid.Column="0" BackgroundColor="White" Padding="15" StrokeThickness="0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="10"/>
-                        </Border.StrokeShape>
-                        <VerticalStackLayout Spacing="10">
-                            <Label Text="🏔️" FontSize="40" HorizontalOptions="Center"/>
-                            <Label Text="Cerro Vista Mar" FontAttributes="Bold" FontSize="14" HorizontalOptions="Center"/>
-                            <Label Text="Mirador" TextColor="#666666" FontSize="12" HorizontalOptions="Center"/>
-                            <Label Text="⭐ 4.5" TextColor="#FFA500" FontSize="12" HorizontalOptions="Center"/>
-                        </VerticalStackLayout>
-                    </Border>
+        <!-- Contenido principal -->
+        <Grid Grid.Row="1">
+            
+            <!-- Loading Overlay -->
+            <Grid x:Name="LoadingOverlay" 
+                  BackgroundColor="#80000000" 
+                  IsVisible="{Binding IsLoading}">
+                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="15">
+                    <ActivityIndicator IsRunning="True" Color="White" HeightRequest="40" WidthRequest="40"/>
+                    <Label Text="{Binding LoadingMessage}" 
+                           TextColor="White" 
+                           FontSize="16" 
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Grid>
+            
+            <!-- Scroll View con destinos -->
+            <ScrollView>
+                <VerticalStackLayout Spacing="20" Padding="20">
                     
-                    <!-- Mini tarjeta 2 -->
-                    <Border Grid.Column="1" BackgroundColor="White" Padding="15" StrokeThickness="0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="10"/>
-                        </Border.StrokeShape>
-                        <VerticalStackLayout Spacing="10">
-                            <Label Text="🌴" FontSize="40" HorizontalOptions="Center"/>
-                            <Label Text="Parque Nacional" FontAttributes="Bold" FontSize="14" HorizontalOptions="Center"/>
-                            <Label Text="Naturaleza" TextColor="#666666" FontSize="12" HorizontalOptions="Center"/>
-                            <Label Text="⭐ 4.7" TextColor="#FFA500" FontSize="12" HorizontalOptions="Center"/>
-                        </VerticalStackLayout>
-                    </Border>
-                </Grid>
-                
-            </VerticalStackLayout>
-        </ScrollView>
-        
-        <!-- Bottom Navigation -->
-        <Grid Grid.Row="2" 
-              BackgroundColor="White" 
-              ColumnDefinitions="*,*,*,*,*" 
-              HeightRequest="60"
-              Padding="10,5">
-            <VerticalStackLayout Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="🏠" FontSize="24" TextColor="#999999"/>
-                <Label Text="Inicio" FontSize="10" TextColor="#999999"/>
-            </VerticalStackLayout>
+                    <!-- Destinos destacados -->
+                    <VerticalStackLayout IsVisible="{Binding HasFeaturedDestinations}" Spacing="15">
+                        <Label Text="Destinos destacados" FontSize="20" FontAttributes="Bold" TextColor="#333333"/>
+                        
+                        <CollectionView ItemsSource="{Binding FeaturedDestinations}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="15"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource CardStyle}" Padding="0">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DestinationTappedCommand}" 
+                                                                CommandParameter="{Binding .}"/>
+                                        </Border.GestureRecognizers>
+                                        
+                                        <Grid RowDefinitions="200,Auto">
+                                            
+                                            <!-- Imagen del destino -->
+                                            <Border Grid.Row="0" HeightRequest="200" Padding="0" StrokeThickness="0">
+                                                <Border.StrokeShape>
+                                                    <RoundRectangle CornerRadius="10,10,0,0"/>
+                                                </Border.StrokeShape>
+                                                <Grid BackgroundColor="#E8E8E8">
+                                                    
+                                                    <!-- Emoji como imagen placeholder -->
+                                                    <Label Text="{Binding CategoryEmoji}" 
+                                                           FontSize="80" 
+                                                           HorizontalOptions="Center" 
+                                                           VerticalOptions="Center"/>
+                                                    
+                                                    <!-- Badge de categoría -->
+                                                    <Border Style="{StaticResource CategoryBadgeStyle}" 
+                                                            HorizontalOptions="Start" 
+                                                            VerticalOptions="Start" 
+                                                            Margin="15">
+                                                        <Label Text="{Binding Category}" TextColor="White" FontSize="12"/>
+                                                    </Border>
+                                                    
+                                                    <!-- Botón de favorito -->
+                                                    <Button Text="{Binding IsFavorite, Converter={StaticResource FavoriteIconConverter}}" 
+                                                            FontSize="20"
+                                                            BackgroundColor="White"
+                                                            TextColor="#F56565"
+                                                            WidthRequest="40"
+                                                            HeightRequest="40"
+                                                            CornerRadius="20"
+                                                            HorizontalOptions="End"
+                                                            VerticalOptions="Start"
+                                                            Margin="15"
+                                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ToggleFavoriteCommand}"
+                                                            CommandParameter="{Binding .}"/>
+                                                    
+                                                </Grid>
+                                            </Border>
+                                            
+                                            <!-- Información del destino -->
+                                            <VerticalStackLayout Grid.Row="1" Padding="15" Spacing="8">
+                                                
+                                                <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" TextColor="#333333"/>
+                                                
+                                                <Label Text="{Binding Description}" 
+                                                       FontSize="14" 
+                                                       TextColor="#666666" 
+                                                       MaxLines="2"/>
+                                                
+                                                <HorizontalStackLayout Spacing="15">
+                                                    
+                                                    <HorizontalStackLayout Spacing="5">
+                                                        <Label Text="⭐" FontSize="14"/>
+                                                        <Label Text="{Binding AverageRating, StringFormat='{0:F1}'}" 
+                                                               TextColor="#F56565" 
+                                                               FontSize="12"/>
+                                                        <Label Text="{Binding ReviewCount, StringFormat='({0} reviews)'}" 
+                                                               FontSize="12" 
+                                                               TextColor="#999999"/>
+                                                    </HorizontalStackLayout>
+                                                    
+                                                    <Label Text="•" FontSize="12" TextColor="#999999"/>
+                                                    
+                                                    <HorizontalStackLayout Spacing="5">
+                                                        <Label Text="📍" FontSize="12"/>
+                                                        <Label Text="{Binding Location}" FontSize="12" TextColor="#999999"/>
+                                                    </HorizontalStackLayout>
+                                                    
+                                                </HorizontalStackLayout>
+                                                
+                                            </VerticalStackLayout>
+                                            
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                    
+                    <!-- Todos los destinos -->
+                    <VerticalStackLayout IsVisible="{Binding HasDestinations}" Spacing="15">
+                        <Label Text="{Binding DestinationsTitle}" FontSize="20" FontAttributes="Bold" TextColor="#333333"/>
+                        
+                        <CollectionView ItemsSource="{Binding FilteredDestinations}">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical" 
+                                               Span="2" 
+                                               HorizontalItemSpacing="15" 
+                                               VerticalItemSpacing="15"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource CardStyle}" Padding="15">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DestinationTappedCommand}" 
+                                                                CommandParameter="{Binding .}"/>
+                                        </Border.GestureRecognizers>
+                                        
+                                        <VerticalStackLayout Spacing="10">
+                                            
+                                            <Label Text="{Binding CategoryEmoji}" 
+                                                   FontSize="50" 
+                                                   HorizontalOptions="Center"/>
+                                            
+                                            <Label Text="{Binding Name}" 
+                                                   FontAttributes="Bold" 
+                                                   FontSize="14" 
+                                                   TextColor="#333333" 
+                                                   HorizontalOptions="Center" 
+                                                   MaxLines="2"/>
+                                            
+                                            <Label Text="{Binding Category}" 
+                                                   FontSize="12" 
+                                                   TextColor="#999999" 
+                                                   HorizontalOptions="Center"/>
+                                            
+                                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                                                <Label Text="⭐" FontSize="12"/>
+                                                <Label Text="{Binding AverageRating, StringFormat='{0:F1}'}" 
+                                                       TextColor="#F56565" 
+                                                       FontSize="12"/>
+                                            </HorizontalStackLayout>
+                                            
+                                        </VerticalStackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                    
+                    <!-- Estado vacío -->
+                    <VerticalStackLayout IsVisible="{Binding IsEmpty}" 
+                                       VerticalOptions="Center" 
+                                       HorizontalOptions="Center" 
+                                       Spacing="20" 
+                                       Padding="40">
+                        <Label Text="🗺️" FontSize="80" HorizontalOptions="Center"/>
+                        <Label Text="No se encontraron destinos" 
+                               FontSize="18" 
+                               FontAttributes="Bold" 
+                               HorizontalOptions="Center" 
+                               TextColor="#666666"/>
+                        <Label Text="Intenta cambiar los filtros o el término de búsqueda" 
+                               FontSize="14" 
+                               HorizontalOptions="Center" 
+                               TextColor="#999999"/>
+                        <Button Text="Ver todos los destinos" 
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Command="{Binding ClearFiltersCommand}"/>
+                    </VerticalStackLayout>
+                    
+                </VerticalStackLayout>
+            </ScrollView>
             
-            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="❤️" FontSize="24" TextColor="#999999"/>
-                <Label Text="Favoritos" FontSize="10" TextColor="#999999"/>
-            </VerticalStackLayout>
-            
-            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="🗺️" FontSize="24" TextColor="#5865F2"/>
-                <Label Text="Mapa" FontSize="10" TextColor="#5865F2"/>
-            </VerticalStackLayout>
-            
-            <VerticalStackLayout Grid.Column="3" VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="📋" FontSize="24" TextColor="#999999"/>
-                <Label Text="Planes" FontSize="10" TextColor="#999999"/>
-            </VerticalStackLayout>
-            
-            <VerticalStackLayout Grid.Column="4" VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="👤" FontSize="24" TextColor="#999999"/>
-                <Label Text="Perfil" FontSize="10" TextColor="#999999"/>
-            </VerticalStackLayout>
         </Grid>
         
     </Grid>
-    </ContentPage.Content>
+    
 </ContentPage>

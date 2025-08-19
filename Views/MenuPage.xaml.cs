@@ -15,14 +15,40 @@ public partial class MenuPage : ContentPage
 
     async void OnExploreTapped(object sender, TappedEventArgs e)
     {
-        var destPage = App.ServiceProvider.GetRequiredService<DestinationsPage>();
-        await Navigation.PushAsync(destPage);
+        try
+        {
+            System.Diagnostics.Debug.WriteLine("Starting navigation to destinations...");
+            
+            // Resolver servicios individualmente
+            var destinationService = App.ServiceProvider.GetRequiredService<DestinationService>();
+            var tourService = App.ServiceProvider.GetRequiredService<TourService>();
+            
+            // Crear la página directamente
+            var destPage = new DestinationsPage(destinationService, tourService);
+            
+            System.Diagnostics.Debug.WriteLine("DestinationsPage created successfully");
+            await Navigation.PushAsync(destPage);
+            System.Diagnostics.Debug.WriteLine("Navigation completed successfully");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error navigating to destinations: {ex}");
+            await DisplayAlert("Error", $"No se pudo abrir la página de destinos: {ex.Message}", "OK");
+        }
     }
 
     async void OnBookingsTapped(object sender, TappedEventArgs e)
     {
-        var bookingsPage = App.ServiceProvider.GetRequiredService<BookingsPage>();
-        await Navigation.PushAsync(bookingsPage);
+        try
+        {
+            var bookingsPage = App.ServiceProvider.GetRequiredService<BookingsPage>();
+            await Navigation.PushAsync(bookingsPage);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error navigating to bookings: {ex.Message}");
+            await DisplayAlert("Error", "No se pudo abrir la página de reservas. Intenta nuevamente.", "OK");
+        }
     }
 
     async void OnLogoutClicked(object sender, EventArgs e)

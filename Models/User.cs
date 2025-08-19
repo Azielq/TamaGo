@@ -12,19 +12,19 @@ public class User : BaseModel
     public int IdUser { get; set; }
 
     /* ---------- Datos básicos ---------- */
-    [Column("firstname")]  public string FirstName  { get; set; }
-    [Column("lastname")]   public string LastName   { get; set; }
-    [Column("username")]   public string Username   { get; set; }   // NUEVO
-    [Column("email")]      public string Email      { get; set; }
+    [Column("firstname")]  public string FirstName  { get; set; } = string.Empty;
+    [Column("lastname")]   public string LastName   { get; set; } = string.Empty;
+    [Column("username")]   public string Username   { get; set; } = string.Empty;   // NUEVO
+    [Column("email")]      public string Email      { get; set; } = string.Empty;
 
     /* ---------- Seguridad ---------- */
-    [Column("passwordhash")]   public string PasswordHash { get; set; }
+    [Column("passwordhash")]   public string PasswordHash { get; set; } = string.Empty;
 
     /* ---------- Perfil ---------- */
-    [Column("profilepicture")] public string ProfilePicture { get; set; }
+    [Column("profilepicture")] public string? ProfilePicture { get; set; }
 
-    [Column("country")]    public string  Country   { get; set; }   // NUEVO (nullable)
-    [Column("phone")]      public string  Phone     { get; set; }   // NUEVO (nullable)
+    [Column("country")]    public string? Country   { get; set; }   // NUEVO (nullable)
+    [Column("phone")]      public string? Phone     { get; set; }   // NUEVO (nullable)
     [Column("birthdate")]  public DateTime? BirthDate { get; set; } // NUEVO (nullable)
 
     /* ---------- Timestamps ---------- */
