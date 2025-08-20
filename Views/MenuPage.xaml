@@ -25,78 +25,109 @@
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Spacing="20" Padding="20">
                 
-                <!-- Opciones principales en grid -->
-                <Grid RowDefinitions="120,120" ColumnDefinitions="*,*" RowSpacing="15" ColumnSpacing="15">
-                    
-                    <!-- Explorar destinos -->
-                    <Border Grid.Row="0" Grid.Column="0" BackgroundColor="White" Padding="15" StrokeThickness="0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="10"/>
-                        </Border.StrokeShape>
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnExploreTapped"/>
-                        </Border.GestureRecognizers>
-                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
-                            <Label Text="🌴" FontSize="40" HorizontalOptions="Center"/>
-                            <Label Text="Explorar" FontSize="14" FontAttributes="Bold" TextColor="#333333" HorizontalOptions="Center"/>
-                            <Label Text="Destinos" FontSize="12" TextColor="#666666" HorizontalOptions="Center"/>
-                        </VerticalStackLayout>
-                    </Border>
-                    
-                    <!-- Mis reservas -->
-                    <Border Grid.Row="0" Grid.Column="1" BackgroundColor="White" Padding="15" StrokeThickness="0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="10"/>
-                        </Border.StrokeShape>
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnBookingsTapped"/>
-                        </Border.GestureRecognizers>
-                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
-                            <Label Text="📋" FontSize="40" HorizontalOptions="Center"/>
-                            <Label Text="Mis" FontSize="14" FontAttributes="Bold" TextColor="#333333" HorizontalOptions="Center"/>
-                            <Label Text="Reservas" FontSize="12" TextColor="#666666" HorizontalOptions="Center"/>
-                        </VerticalStackLayout>
-                    </Border>
-                    
-                    <!-- Mi perfil -->
-                    <Border Grid.Row="1" Grid.Column="0" BackgroundColor="White" Padding="15" StrokeThickness="0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="10"/>
-                        </Border.StrokeShape>
-                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
-                            <Label Text="👤" FontSize="40" HorizontalOptions="Center"/>
-                            <Label Text="Mi" FontSize="14" FontAttributes="Bold" TextColor="#333333" HorizontalOptions="Center"/>
-                            <Label Text="Perfil" FontSize="12" TextColor="#666666" HorizontalOptions="Center"/>
-                        </VerticalStackLayout>
-                    </Border>
-                    
-                    <!-- Cerrar sesión -->
-                    <Border Grid.Row="1" Grid.Column="1" BackgroundColor="#5865F2" Padding="15" StrokeThickness="0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="10"/>
-                        </Border.StrokeShape>
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnLogoutClicked"/>
-                        </Border.GestureRecognizers>
-                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
-                            <Label Text="🚪" FontSize="40" HorizontalOptions="Center"/>
-                            <Label Text="Cerrar" FontSize="14" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
-                            <Label Text="Sesión" FontSize="12" TextColor="White" HorizontalOptions="Center"/>
-                        </VerticalStackLayout>
-                    </Border>
-                </Grid>
-                
-                <!-- Sección de actividad reciente -->
-                <Label Text="Actividad reciente" FontSize="20" FontAttributes="Bold" TextColor="#333333" Margin="0,20,0,0"/>
-                
-                <Border BackgroundColor="White" Padding="15" StrokeThickness="0">
+                <!-- Sección de Introducción -->
+                <Border BackgroundColor="White" Padding="20" StrokeThickness="0">
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="10"/>
+                        <RoundRectangle CornerRadius="15"/>
                     </Border.StrokeShape>
-                    <VerticalStackLayout Spacing="10">
-                        <Label Text="🎉 ¡Bienvenido a TamaGo!" FontAttributes="Bold" FontSize="16" TextColor="#333333"/>
-                        <Label Text="Explora los mejores tours y actividades en Tamarindo" TextColor="#666666" FontSize="14"/>
-                        <Label Text="Comienza explorando nuestros destinos destacados" TextColor="#5865F2" FontSize="12"/>
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="Bienvenido a Tamarindo" 
+                               FontSize="24" 
+                               FontAttributes="Bold" 
+                               TextColor="#333333" 
+                               HorizontalOptions="Center"/>
+                        
+                        <!-- Imagen del lugar -->
+                        <Border StrokeThickness="0" HeightRequest="250">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            <Image Source="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=2274&amp;q=80" 
+                                   Aspect="AspectFill" 
+                                   BackgroundColor="#E0E0E0"/>
+                        </Border>
+                        
+                        <Label Text="Tamarindo es uno de los destinos turísticos más populares de Costa Rica, ubicado en la provincia de Guanacaste. Conocido por sus hermosas playas de arena dorada, aguas cristalinas del Pacífico y su ambiente relajado, Tamarindo ofrece la combinación perfecta entre naturaleza, aventura y tranquilidad. Este pintoresco pueblo costero es famoso por sus impresionantes atardeceres, excelentes condiciones para el surf y su rica biodiversidad que lo convierte en un paraíso tanto para los amantes de la playa como para los entusiastas de la naturaleza."
+                               FontSize="14" 
+                               TextColor="#666666" 
+                               LineHeight="1.4"/>
+                    </VerticalStackLayout>
+                </Border>
+                
+                <!-- Sección de Ecología -->
+                <Border BackgroundColor="White" Padding="20" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="🌿 Ecología de Tamarindo" 
+                               FontSize="20" 
+                               FontAttributes="Bold" 
+                               TextColor="#2E7D32"/>
+                        
+                        <VerticalStackLayout Spacing="10">
+                            <Label Text="🌺 Flora:" FontSize="16" FontAttributes="Bold" TextColor="#333333"/>
+                            <Label Text="La región cuenta con bosque tropical seco, mangles, cecropia, pochote, guanacaste, y una gran variedad de plantas costeras adaptadas al clima seco del Pacífico."
+                                   FontSize="14" 
+                                   TextColor="#666666" 
+                                   LineHeight="1.4"/>
+                        </VerticalStackLayout>
+                        
+                        <VerticalStackLayout Spacing="10">
+                            <Label Text="🦜 Fauna:" FontSize="16" FontAttributes="Bold" TextColor="#333333"/>
+                            <Label Text="Hogar de tortugas baula, monos aulladores, cocodrilos, iguanas, más de 180 especies de aves como loras, tucanes y pelícanos, además de una rica vida marina que incluye delfines y ballenas."
+                                   FontSize="14" 
+                                   TextColor="#666666" 
+                                   LineHeight="1.4"/>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+                
+                <!-- Sección del Mapa -->
+                <Border BackgroundColor="White" Padding="20" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="🗺️ Ubicación" 
+                               FontSize="20" 
+                               FontAttributes="Bold" 
+                               TextColor="#1976D2"/>
+                        
+                        <Label Text="Mapa interactivo de Tamarindo, Guanacaste"
+                               FontSize="14" 
+                               TextColor="#666666" 
+                               HorizontalOptions="Center"/>
+                        
+                        <!-- Mapa embebido -->
+                        <Border StrokeThickness="1" 
+                                Stroke="#E0E0E0" 
+                                HeightRequest="300"
+                                Margin="0,10,0,0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            <WebView x:Name="MapWebView"
+                                     BackgroundColor="#F0F0F0"/>
+                        </Border>
+                        
+                        <!-- Botones de acción -->
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="0,15,0,0">
+                            <Button Grid.Column="0" 
+                                    Text="Abrir en Maps" 
+                                    BackgroundColor="#1976D2" 
+                                    TextColor="White" 
+                                    CornerRadius="25" 
+                                    FontSize="12"
+                                    Clicked="OnViewMapClicked"/>
+                            <Button Grid.Column="1" 
+                                    Text="Cómo Llegar" 
+                                    BackgroundColor="#4CAF50" 
+                                    TextColor="White" 
+                                    CornerRadius="25" 
+                                    FontSize="12"
+                                    Clicked="OnGetDirectionsClicked"/>
+                        </Grid>
                     </VerticalStackLayout>
                 </Border>
                 
@@ -106,32 +137,41 @@
         <!-- Bottom Navigation -->
         <Grid Grid.Row="2" 
               BackgroundColor="White" 
-              ColumnDefinitions="*,*,*,*,*" 
-              HeightRequest="60"
-              Padding="10,5">
+              ColumnDefinitions="*,*,*,*" 
+              HeightRequest="70"
+              Padding="5">
+            
+            <!-- Tours -->
             <VerticalStackLayout Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnToursTapped"/>
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="🚌" FontSize="24" TextColor="#999999"/>
+                <Label Text="Tours" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+            
+            <!-- Destinos -->
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnExploreTapped"/>
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="🌴" FontSize="24" TextColor="#999999"/>
+                <Label Text="Destinos" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+            
+            <!-- Inicio -->
+            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center">
                 <Label Text="🏠" FontSize="24" TextColor="#5865F2"/>
                 <Label Text="Inicio" FontSize="10" TextColor="#5865F2"/>
             </VerticalStackLayout>
             
-            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="❤️" FontSize="24" TextColor="#999999"/>
-                <Label Text="Favoritos" FontSize="10" TextColor="#999999"/>
-            </VerticalStackLayout>
-            
-            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="🗺️" FontSize="24" TextColor="#999999"/>
-                <Label Text="Mapa" FontSize="10" TextColor="#999999"/>
-            </VerticalStackLayout>
-            
+            <!-- Cuenta -->
             <VerticalStackLayout Grid.Column="3" VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="📋" FontSize="24" TextColor="#999999"/>
-                <Label Text="Planes" FontSize="10" TextColor="#999999"/>
-            </VerticalStackLayout>
-            
-            <VerticalStackLayout Grid.Column="4" VerticalOptions="Center" HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnAccountTapped"/>
+                </VerticalStackLayout.GestureRecognizers>
                 <Label Text="👤" FontSize="24" TextColor="#999999"/>
-                <Label Text="Perfil" FontSize="10" TextColor="#999999"/>
+                <Label Text="Cuenta" FontSize="10" TextColor="#999999"/>
             </VerticalStackLayout>
         </Grid>
         

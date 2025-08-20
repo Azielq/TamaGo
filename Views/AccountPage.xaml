@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TamaGo.Views.AccountPage"
+             Title="Mi Cuenta"
+             BackgroundColor="#F5F5F5">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*,Auto">
+        
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" Padding="20,10" BackgroundColor="White">
+            <Label Text="Mi Cuenta" 
+                   FontSize="24" 
+                   FontAttributes="Bold"
+                   TextColor="#333333"
+                   HorizontalOptions="Center"/>
+            <Label Text="Gestiona tu perfil y configuración" 
+                   FontSize="14" 
+                   TextColor="#666666"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+        
+        <!-- Contenido principal -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="20" Padding="20">
+                
+                <!-- Información del usuario -->
+                <Border BackgroundColor="White" Padding="20" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="15">
+                        <!-- Avatar del usuario -->
+                        <Border StrokeThickness="3" 
+                                Stroke="#5865F2" 
+                                WidthRequest="80" 
+                                HeightRequest="80"
+                                HorizontalOptions="Center">
+                            <Border.StrokeShape>
+                                <Ellipse/>
+                            </Border.StrokeShape>
+                            <Label Text="👤" 
+                                   FontSize="40" 
+                                   HorizontalOptions="Center" 
+                                   VerticalOptions="Center"
+                                   BackgroundColor="#F0F0F0"/>
+                        </Border>
+                        
+                        <Label x:Name="UserNameLabel" 
+                               Text="Usuario" 
+                               FontSize="18" 
+                               FontAttributes="Bold" 
+                               TextColor="#333333" 
+                               HorizontalOptions="Center"/>
+                        
+                        <Label x:Name="UserEmailLabel" 
+                               Text="usuario@ejemplo.com" 
+                               FontSize="14" 
+                               TextColor="#666666" 
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+                
+                <!-- Opciones de cuenta -->
+                <Border BackgroundColor="White" Padding="0" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="0">
+                        
+                        <!-- Mi Perfil -->
+                        <Border Padding="20,15" StrokeThickness="0">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnProfileTapped"/>
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Label Grid.Column="0" Text="👤" FontSize="20" VerticalOptions="Center"/>
+                                <Label Grid.Column="1" Text="Mi Perfil" FontSize="16" TextColor="#333333" VerticalOptions="Center" Margin="15,0,0,0"/>
+                                <Label Grid.Column="2" Text="›" FontSize="20" TextColor="#999999" VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
+                        
+                        <!-- Separador -->
+                        <BoxView HeightRequest="1" BackgroundColor="#F0F0F0" Margin="20,0"/>
+                        
+                        <!-- Mis Reservas -->
+                        <Border Padding="20,15" StrokeThickness="0">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnBookingsTapped"/>
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Label Grid.Column="0" Text="📋" FontSize="20" VerticalOptions="Center"/>
+                                <Label Grid.Column="1" Text="Mis Reservas" FontSize="16" TextColor="#333333" VerticalOptions="Center" Margin="15,0,0,0"/>
+                                <Label Grid.Column="2" Text="›" FontSize="20" TextColor="#999999" VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
+                        
+                        <!-- Separador -->
+                        <BoxView HeightRequest="1" BackgroundColor="#F0F0F0" Margin="20,0"/>
+                        
+                        <!-- Favoritos -->
+                        <Border Padding="20,15" StrokeThickness="0">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnFavoritesTapped"/>
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Label Grid.Column="0" Text="❤️" FontSize="20" VerticalOptions="Center"/>
+                                <Label Grid.Column="1" Text="Mis Favoritos" FontSize="16" TextColor="#333333" VerticalOptions="Center" Margin="15,0,0,0"/>
+                                <Label Grid.Column="2" Text="›" FontSize="20" TextColor="#999999" VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
+                        
+                        <!-- Separador -->
+                        <BoxView HeightRequest="1" BackgroundColor="#F0F0F0" Margin="20,0"/>
+                        
+                        <!-- Configuración -->
+                        <Border Padding="20,15" StrokeThickness="0">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSettingsTapped"/>
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Label Grid.Column="0" Text="⚙️" FontSize="20" VerticalOptions="Center"/>
+                                <Label Grid.Column="1" Text="Configuración" FontSize="16" TextColor="#333333" VerticalOptions="Center" Margin="15,0,0,0"/>
+                                <Label Grid.Column="2" Text="›" FontSize="20" TextColor="#999999" VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+                
+                <!-- Botón de cerrar sesión -->
+                <Button Text="Cerrar Sesión" 
+                        BackgroundColor="#FF4444" 
+                        TextColor="White" 
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        CornerRadius="25"
+                        HeightRequest="50"
+                        Clicked="OnLogoutClicked"/>
+                
+            </VerticalStackLayout>
+        </ScrollView>
+        
+    </Grid>
+    </ContentPage.Content>
+</ContentPage>

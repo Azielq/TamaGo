@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			  x:Class="TamaGo.Views.BookingModalPage"
+			  Title="Reservar"
+			  BackgroundColor="#F5F5F5">
+
+	<Grid RowDefinitions="Auto,*,Auto">
+		<!-- Header -->
+		<VerticalStackLayout Grid.Row="0" Padding="20,10" BackgroundColor="White" Spacing="4">
+			<Label Text="Confirmar reserva" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
+			<Label Text="Selecciona fecha y personas" FontSize="12" TextColor="#666666" HorizontalOptions="Center"/>
+		</VerticalStackLayout>
+
+		<!-- Content -->
+		<ScrollView Grid.Row="1">
+			<VerticalStackLayout Padding="20" Spacing="16">
+				<Border Style="{StaticResource CardStyle}" BackgroundColor="White">
+					<VerticalStackLayout Spacing="8">
+						<Label Text="Tour" FontAttributes="Bold" FontSize="14"/>
+						<Label Text="{Binding Tour.Title}" TextColor="#333333"/>
+						<Label Text="{Binding Tour.Destination.Name, StringFormat='Destino: {0}'}" FontSize="12" TextColor="#666666"/>
+						<Label Text="{Binding Tour.FormattedPrice, StringFormat='Precio por persona: {0}'}" FontSize="12" TextColor="#666666"/>
+					</VerticalStackLayout>
+				</Border>
+
+				<!-- Fecha -->
+				<Border Style="{StaticResource CardStyle}" BackgroundColor="White">
+					<VerticalStackLayout Spacing="8">
+						<Label Text="Fecha del tour" FontAttributes="Bold" FontSize="14" TextColor="#333333"/>
+						<Border BackgroundColor="#F0F0F0" 
+								Stroke="#CCCCCC" 
+								StrokeThickness="1" 
+								Padding="12,8">
+							<DatePicker Date="{Binding SelectedDate, Mode=TwoWay}" 
+									   MinimumDate="{Binding MinDate}"
+									   BackgroundColor="Transparent"
+									   TextColor="#333333"
+									   FontSize="16"
+									   Format="dd/MM/yyyy"/>
+						</Border>
+					</VerticalStackLayout>
+				</Border>
+
+				<!-- Personas -->
+				<Border Style="{StaticResource CardStyle}" BackgroundColor="White">
+					<VerticalStackLayout Spacing="8">
+						<Label Text="Número de personas" FontAttributes="Bold" FontSize="14" TextColor="#333333"/>
+						<HorizontalStackLayout Spacing="15" HorizontalOptions="Center">
+							<Button Text="−" 
+									WidthRequest="45" 
+									HeightRequest="45" 
+									CornerRadius="22" 
+									BackgroundColor="#FF6B6B" 
+									TextColor="White" 
+									FontSize="18"
+									FontAttributes="Bold"
+									Command="{Binding DecreasePeopleCommand}"/>
+							<Border BackgroundColor="#F8F9FA" 
+									Stroke="#DEE2E6" 
+									StrokeThickness="2" 
+									Padding="16,12"
+									WidthRequest="80">
+								<Border.StrokeShape>
+									<RoundRectangle CornerRadius="8"/>
+								</Border.StrokeShape>
+								<Label Text="{Binding PeopleCount}" 
+									   FontSize="20" 
+									   FontAttributes="Bold" 
+									   TextColor="#333333"
+									   HorizontalOptions="Center" 
+									   VerticalOptions="Center"
+									   HorizontalTextAlignment="Center"/>
+							</Border>
+							<Button Text="+" 
+									WidthRequest="45" 
+									HeightRequest="45" 
+									CornerRadius="22" 
+									BackgroundColor="#4ECDC4" 
+									TextColor="White"
+									FontSize="18"
+									FontAttributes="Bold"
+									Command="{Binding IncreasePeopleCommand}"/>
+						</HorizontalStackLayout>
+					</VerticalStackLayout>
+				</Border>
+
+				<!-- Disponibilidad -->
+				<Border Style="{StaticResource CardStyle}" BackgroundColor="{StaticResource BackgroundColor}" IsVisible="{Binding ShowAvailability}">
+					<VerticalStackLayout Spacing="4">
+						<HorizontalStackLayout Spacing="8">
+							<Label Text="📅"/>
+							<Label Text="Disponibilidad" FontAttributes="Bold"/>
+						</HorizontalStackLayout>
+						<Label Text="{Binding AvailabilityText}" TextColor="{Binding AvailabilityColor}"/>
+					</VerticalStackLayout>
+				</Border>
+
+				<!-- Total -->
+				<Border Style="{StaticResource CardStyle}" BackgroundColor="{StaticResource PrimaryColor}">
+					<HorizontalStackLayout Spacing="15">
+						<VerticalStackLayout>
+							<Label Text="Total" TextColor="White" FontAttributes="Bold"/>
+							<Label Text="{Binding PeopleCount, StringFormat='{0} persona(s)'}" TextColor="White" FontSize="12"/>
+						</VerticalStackLayout>
+						<Label Text="{Binding TotalPrice, StringFormat='${0:F0}'}" TextColor="White" FontSize="24" FontAttributes="Bold" VerticalOptions="Center"/>
+					</HorizontalStackLayout>
+				</Border>
+			</VerticalStackLayout>
+		</ScrollView>
+
+		<!-- Footer buttons -->
+		<Grid Grid.Row="2" BackgroundColor="White" Padding="20,15" ColumnDefinitions="*,10,*">
+			<Button Text="Cancelar" 
+					BackgroundColor="#6C757D" 
+					TextColor="White" 
+					FontSize="16"
+					FontAttributes="Bold"
+					CornerRadius="8"
+					HeightRequest="50" 
+					Command="{Binding CancelCommand}"/>
+			<Button Grid.Column="2" 
+					Text="Confirmar" 
+					BackgroundColor="#28A745" 
+					TextColor="White"
+					FontSize="16"
+					FontAttributes="Bold"
+					CornerRadius="8"
+					HeightRequest="50" 
+					Command="{Binding ConfirmCommand}" 
+					IsEnabled="{Binding CanConfirm}"/>
+		</Grid>
+
+		<!-- Loading overlay -->
+		<Grid Grid.RowSpan="3" BackgroundColor="#80000000" IsVisible="{Binding IsLoading}">
+			<VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="12">
+				<ActivityIndicator IsRunning="True" Color="White" HeightRequest="40" WidthRequest="40"/>
+				<Label Text="{Binding LoadingMessage}" TextColor="White"/>
+			</VerticalStackLayout>
+		</Grid>
+	</Grid>
+
+</ContentPage>
+

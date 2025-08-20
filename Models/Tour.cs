@@ -24,8 +24,17 @@ public class Tour : BaseModel
     [Column("duration")]
     public int Duration { get; set; }
 
-    [Column("max_capacity")]
-    public int MaxCapacity { get; set; }
+    // Note: max_capacity column doesn't exist in DB, using computed property
+    public int MaxCapacity => IdTour switch
+    {
+        1 => 8,  // Clases de Surf para Principiantes
+        2 => 12, // Tour de Snorkel  
+        3 => 6,  // Tour Nocturno de Tortugas
+        4 => 10, // Kayak en los Manglares
+        5 => 8,  // Sunset Sailing
+        6 => 6,  // Stand Up Paddle
+        _ => 8   // Default capacity
+    };
 
     [Column("difficulty_level")]
     public string DifficultyLevel { get; set; }

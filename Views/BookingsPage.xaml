@@ -26,30 +26,63 @@
                 
                 <!-- Tabs de estado -->
                 <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-                    <Border BackgroundColor="#5865F2" Padding="15,8" StrokeThickness="0">
+                    <Border x:Name="ActiveTab" 
+                            BackgroundColor="#5865F2" 
+                            Padding="15,8" 
+                            StrokeThickness="0"
+                            BindingContext="active">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="20"/>
                         </Border.StrokeShape>
-                        <Label Text="Activas (0)" TextColor="White" FontSize="14"/>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTabSelected"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="{Binding ActiveCount, StringFormat='Activas ({0})'}" 
+                               TextColor="White" 
+                               FontSize="14"/>
                     </Border>
                     
-                    <Border BackgroundColor="White" Padding="15,8" StrokeThickness="1" Stroke="#E0E0E0">
+                    <Border x:Name="PastTab"
+                            BackgroundColor="White" 
+                            Padding="15,8" 
+                            StrokeThickness="1" 
+                            Stroke="#E0E0E0"
+                            BindingContext="past">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="20"/>
                         </Border.StrokeShape>
-                        <Label Text="Pasadas (0)" TextColor="#666666" FontSize="14"/>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTabSelected"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="{Binding PastCount, StringFormat='Pasadas ({0})'}" 
+                               TextColor="#666666" 
+                               FontSize="14"/>
                     </Border>
                     
-                    <Border BackgroundColor="White" Padding="15,8" StrokeThickness="1" Stroke="#E0E0E0">
+                    <Border x:Name="CancelledTab"
+                            BackgroundColor="White" 
+                            Padding="15,8" 
+                            StrokeThickness="1" 
+                            Stroke="#E0E0E0"
+                            BindingContext="cancelled">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="20"/>
                         </Border.StrokeShape>
-                        <Label Text="Canceladas (0)" TextColor="#666666" FontSize="14"/>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTabSelected"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="{Binding CancelledCount, StringFormat='Canceladas ({0})'}" 
+                               TextColor="#666666" 
+                               FontSize="14"/>
                     </Border>
                 </HorizontalStackLayout>
                 
                 <!-- Estado vacío con ilustración -->
-                <Border BackgroundColor="White" Padding="30" StrokeThickness="0" Margin="0,40,0,0">
+                <Border BackgroundColor="White" 
+                        Padding="30" 
+                        StrokeThickness="0" 
+                        Margin="0,40,0,0"
+                        IsVisible="{Binding NoBookings}">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
@@ -58,6 +91,7 @@
                         <Label Text="No tienes reservas activas" 
                                FontSize="18" 
                                FontAttributes="Bold"
+                               TextColor="#333333"
                                HorizontalOptions="Center"/>
                         <Label Text="¡Explora nuestros increíbles tours y reserva tu próxima aventura!" 
                                FontSize="14" 
@@ -70,9 +104,85 @@
                                 CornerRadius="8"
                                 HeightRequest="44"
                                 WidthRequest="150"
-                                HorizontalOptions="Center"/>
+                                HorizontalOptions="Center"
+                                Clicked="OnExploreToursClicked"/>
                     </VerticalStackLayout>
                 </Border>
+
+                <!-- Lista de reservas -->
+                <CollectionView ItemsSource="{Binding CurrentBookings}"
+                                IsVisible="{Binding HasBookings}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BackgroundColor="White" 
+                                    Padding="15" 
+                                    StrokeThickness="0"
+                                    Margin="0,5">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10"/>
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="80,*,Auto" ColumnSpacing="15">
+                                    <Border Grid.Column="0" 
+                                            BackgroundColor="#E0E0E0" 
+                                            HeightRequest="80"
+                                            Padding="0"
+                                            StrokeThickness="0">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="10"/>
+                                        </Border.StrokeShape>
+                                        <Label Text="{Binding Tour.Destination.CategoryEmoji}" 
+                                               FontSize="30" 
+                                               HorizontalOptions="Center" 
+                                               VerticalOptions="Center"/>
+                                    </Border>
+                                    
+                                    <VerticalStackLayout Grid.Column="1" 
+                                                         VerticalOptions="Center" 
+                                                         Spacing="5">
+                                        <Label Text="{Binding Tour.Title}" 
+                                               FontAttributes="Bold" 
+                                               FontSize="16" 
+                                               TextColor="#333333"/>
+                                        <Label Text="{Binding FormattedTourDate}" 
+                                               TextColor="#666666" 
+                                               FontSize="12"/>
+                                        <Label Text="{Binding PeopleText}" 
+                                               TextColor="#666666" 
+                                               FontSize="12"/>
+                                        <HorizontalStackLayout Spacing="10">
+                                            <Label Text="{Binding FormattedPrice}" 
+                                                   TextColor="#333333" 
+                                                   FontSize="12"
+                                                   FontAttributes="Bold"/>
+                                            <Border BackgroundColor="{Binding StatusColor}" 
+                                                    Padding="8,2" 
+                                                    StrokeThickness="0">
+                                                <Border.StrokeShape>
+                                                    <RoundRectangle CornerRadius="10"/>
+                                                </Border.StrokeShape>
+                                                <Label Text="{Binding StatusText}" 
+                                                       TextColor="White" 
+                                                       FontSize="10"/>
+                                            </Border>
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                    
+                                    <VerticalStackLayout Grid.Column="2" VerticalOptions="Center">
+                                        <Button Text="Cancelar"
+                                                BackgroundColor="#FF4444"
+                                                TextColor="White"
+                                                FontSize="10"
+                                                Padding="8,4"
+                                                CornerRadius="5"
+                                                IsVisible="{Binding CanCancel}"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.CancelBookingCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
                 
                 <!-- Ejemplo de reserva (comentado para cuando haya datos) -->
                 <!--
@@ -154,32 +264,44 @@
         <!-- Bottom Navigation -->
         <Grid Grid.Row="2" 
               BackgroundColor="White" 
-              ColumnDefinitions="*,*,*,*,*" 
-              HeightRequest="60"
-              Padding="10,5">
+              ColumnDefinitions="*,*,*,*" 
+              HeightRequest="70"
+              Padding="5">
+            
+            <!-- Tours -->
             <VerticalStackLayout Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnToursTapped"/>
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="🚌" FontSize="24" TextColor="#999999"/>
+                <Label Text="Tours" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+            
+            <!-- Destinos -->
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnDestinationsTapped"/>
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="🌴" FontSize="24" TextColor="#999999"/>
+                <Label Text="Destinos" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+            
+            <!-- Inicio -->
+            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnHomeTapped"/>
+                </VerticalStackLayout.GestureRecognizers>
                 <Label Text="🏠" FontSize="24" TextColor="#999999"/>
                 <Label Text="Inicio" FontSize="10" TextColor="#999999"/>
             </VerticalStackLayout>
             
-            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="❤️" FontSize="24" TextColor="#999999"/>
-                <Label Text="Favoritos" FontSize="10" TextColor="#999999"/>
-            </VerticalStackLayout>
-            
-            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="🗺️" FontSize="24" TextColor="#999999"/>
-                <Label Text="Mapa" FontSize="10" TextColor="#999999"/>
-            </VerticalStackLayout>
-            
+            <!-- Cuenta -->
             <VerticalStackLayout Grid.Column="3" VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="📋" FontSize="24" TextColor="#5865F2"/>
-                <Label Text="Planes" FontSize="10" TextColor="#5865F2"/>
-            </VerticalStackLayout>
-            
-            <VerticalStackLayout Grid.Column="4" VerticalOptions="Center" HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnAccountTapped"/>
+                </VerticalStackLayout.GestureRecognizers>
                 <Label Text="👤" FontSize="24" TextColor="#999999"/>
-                <Label Text="Perfil" FontSize="10" TextColor="#999999"/>
+                <Label Text="Cuenta" FontSize="10" TextColor="#999999"/>
             </VerticalStackLayout>
         </Grid>
         

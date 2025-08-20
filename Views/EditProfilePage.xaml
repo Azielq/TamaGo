@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TamaGo.Views.EditProfilePage"
+             Title="Editar Perfil"
+             BackgroundColor="#F5F5F5">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*">
+        
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" Padding="20,10" BackgroundColor="White">
+            <Label Text="Editar Perfil" 
+                   FontSize="24" 
+                   FontAttributes="Bold"
+                   TextColor="#333333"
+                   HorizontalOptions="Center"/>
+            <Label Text="Actualiza tu información personal" 
+                   FontSize="14" 
+                   TextColor="#666666"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+        
+        <!-- Contenido principal -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="20" Padding="20">
+                
+                <!-- Formulario de edición -->
+                <Border BackgroundColor="White" Padding="25" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="20">
+                        
+                        <!-- Nombre -->
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Nombre *" 
+                                   FontSize="14" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#333333"/>
+                            <Border BackgroundColor="#F8F9FA" 
+                                    StrokeThickness="1" 
+                                    Stroke="#E0E0E0"
+                                    Padding="0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+                                <Entry x:Name="FirstNameEntry" 
+                                       Placeholder="Tu nombre"
+                                       BackgroundColor="Transparent"
+                                       TextColor="#333333"
+                                       PlaceholderColor="#999999"
+                                       HeightRequest="50"/>
+                            </Border>
+                        </VerticalStackLayout>
+                        
+                        <!-- Apellido -->
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Apellido *" 
+                                   FontSize="14" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#333333"/>
+                            <Border BackgroundColor="#F8F9FA" 
+                                    StrokeThickness="1" 
+                                    Stroke="#E0E0E0"
+                                    Padding="0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+                                <Entry x:Name="LastNameEntry" 
+                                       Placeholder="Tu apellido"
+                                       BackgroundColor="Transparent"
+                                       TextColor="#333333"
+                                       PlaceholderColor="#999999"
+                                       HeightRequest="50"/>
+                            </Border>
+                        </VerticalStackLayout>
+                        
+                        <!-- País -->
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="País" 
+                                   FontSize="14" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#333333"/>
+                            <Border BackgroundColor="#F8F9FA" 
+                                    StrokeThickness="1" 
+                                    Stroke="#E0E0E0"
+                                    Padding="0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+                                <Entry x:Name="CountryEntry" 
+                                       Placeholder="Tu país"
+                                       BackgroundColor="Transparent"
+                                       TextColor="#333333"
+                                       PlaceholderColor="#999999"
+                                       HeightRequest="50"/>
+                            </Border>
+                        </VerticalStackLayout>
+                        
+                        <!-- Teléfono -->
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Teléfono" 
+                                   FontSize="14" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#333333"/>
+                            <Border BackgroundColor="#F8F9FA" 
+                                    StrokeThickness="1" 
+                                    Stroke="#E0E0E0"
+                                    Padding="0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+                                <Entry x:Name="PhoneEntry" 
+                                       Placeholder="Tu número de teléfono"
+                                       BackgroundColor="Transparent"
+                                       TextColor="#333333"
+                                       PlaceholderColor="#999999"
+                                       HeightRequest="50"
+                                       Keyboard="Telephone"/>
+                            </Border>
+                        </VerticalStackLayout>
+                        
+                        <!-- Botones -->
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="0,10,0,0">
+                            <Button Grid.Column="0"
+                                    Text="Cancelar" 
+                                    BackgroundColor="#E0E0E0" 
+                                    TextColor="#666666" 
+                                    CornerRadius="25"
+                                    HeightRequest="50"
+                                    Clicked="OnCancelClicked"/>
+                            
+                            <Button Grid.Column="1"
+                                    x:Name="SaveButton"
+                                    Text="Guardar Cambios" 
+                                    BackgroundColor="#5865F2" 
+                                    TextColor="White" 
+                                    CornerRadius="25"
+                                    HeightRequest="50"
+                                    Clicked="OnSaveClicked"/>
+                        </Grid>
+                        
+                    </VerticalStackLayout>
+                </Border>
+                
+            </VerticalStackLayout>
+        </ScrollView>
+        
+    </Grid>
+    </ContentPage.Content>
+</ContentPage>

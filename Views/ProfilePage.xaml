@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TamaGo.Views.ProfilePage"
+             Title="Mi Perfil"
+             BackgroundColor="#F5F5F5">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*">
+        
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" Padding="20,10" BackgroundColor="White">
+            <Label Text="Mi Perfil" 
+                   FontSize="24" 
+                   FontAttributes="Bold"
+                   TextColor="#333333"
+                   HorizontalOptions="Center"/>
+            <Label Text="Gestiona tu información personal" 
+                   FontSize="14" 
+                   TextColor="#666666"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+        
+        <!-- Contenido principal -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="20" Padding="20">
+                
+                <!-- Foto de perfil y datos básicos -->
+                <Border BackgroundColor="White" Padding="20" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="20">
+                        
+                        <!-- Avatar del usuario -->
+                        <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                            <Border StrokeThickness="4" 
+                                    Stroke="#5865F2" 
+                                    WidthRequest="100" 
+                                    HeightRequest="100"
+                                    HorizontalOptions="Center">
+                                <Border.StrokeShape>
+                                    <Ellipse/>
+                                </Border.StrokeShape>
+                                <Label Text="👤" 
+                                       FontSize="50" 
+                                       HorizontalOptions="Center" 
+                                       VerticalOptions="Center"
+                                       BackgroundColor="#F0F0F0"/>
+                            </Border>
+                            
+                            <Button Text="Cambiar Foto" 
+                                    BackgroundColor="Transparent" 
+                                    TextColor="#5865F2" 
+                                    FontSize="14"
+                                    Clicked="OnChangePhotoClicked"/>
+                        </VerticalStackLayout>
+                        
+                        <!-- Información básica readonly -->
+                        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" 
+                              ColumnDefinitions="120,*" 
+                              RowSpacing="15" 
+                              ColumnSpacing="10">
+                            
+                            <Label Grid.Row="0" Grid.Column="0" Text="Nombre:" FontAttributes="Bold" TextColor="#333333" VerticalOptions="Center"/>
+                            <Label Grid.Row="0" Grid.Column="1" x:Name="FirstNameLabel" Text="{Binding FirstName}" TextColor="#666666" VerticalOptions="Center"/>
+                            
+                            <Label Grid.Row="1" Grid.Column="0" Text="Apellido:" FontAttributes="Bold" TextColor="#333333" VerticalOptions="Center"/>
+                            <Label Grid.Row="1" Grid.Column="1" x:Name="LastNameLabel" Text="{Binding LastName}" TextColor="#666666" VerticalOptions="Center"/>
+                            
+                            <Label Grid.Row="2" Grid.Column="0" Text="Usuario:" FontAttributes="Bold" TextColor="#333333" VerticalOptions="Center"/>
+                            <Label Grid.Row="2" Grid.Column="1" x:Name="UsernameLabel" Text="{Binding Username}" TextColor="#666666" VerticalOptions="Center"/>
+                            
+                            <Label Grid.Row="3" Grid.Column="0" Text="Email:" FontAttributes="Bold" TextColor="#333333" VerticalOptions="Center"/>
+                            <Label Grid.Row="3" Grid.Column="1" x:Name="EmailLabel" Text="{Binding Email}" TextColor="#666666" VerticalOptions="Center"/>
+                            
+                            <Label Grid.Row="4" Grid.Column="0" Text="País:" FontAttributes="Bold" TextColor="#333333" VerticalOptions="Center"/>
+                            <Label Grid.Row="4" Grid.Column="1" x:Name="CountryLabel" Text="{Binding Country}" TextColor="#666666" VerticalOptions="Center"/>
+                            
+                            <Label Grid.Row="5" Grid.Column="0" Text="Teléfono:" FontAttributes="Bold" TextColor="#333333" VerticalOptions="Center"/>
+                            <Label Grid.Row="5" Grid.Column="1" x:Name="PhoneLabel" Text="{Binding Phone}" TextColor="#666666" VerticalOptions="Center"/>
+                        </Grid>
+                        
+                        <Button Text="Editar Información" 
+                                BackgroundColor="#5865F2" 
+                                TextColor="White" 
+                                CornerRadius="25"
+                                HeightRequest="45"
+                                Clicked="OnEditProfileClicked"/>
+                                
+                    </VerticalStackLayout>
+                </Border>
+                
+                <!-- Sección de Seguridad -->
+                <Border BackgroundColor="White" Padding="20" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="🔒 Seguridad" 
+                               FontSize="18" 
+                               FontAttributes="Bold" 
+                               TextColor="#333333"/>
+                        
+                        <Button Text="Cambiar Contraseña" 
+                                BackgroundColor="#FF6B35" 
+                                TextColor="White" 
+                                CornerRadius="25"
+                                HeightRequest="45"
+                                Clicked="OnChangePasswordClicked"/>
+                    </VerticalStackLayout>
+                </Border>
+                
+                <!-- Estadísticas del usuario -->
+                <Border BackgroundColor="White" Padding="20" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="📊 Mis Estadísticas" 
+                               FontSize="18" 
+                               FontAttributes="Bold" 
+                               TextColor="#333333"/>
+                        
+                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
+                            <Border Grid.Column="0" BackgroundColor="#E3F2FD" Padding="15" StrokeThickness="0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10"/>
+                                </Border.StrokeShape>
+                                <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                                    <Label Text="🎫" FontSize="24" HorizontalOptions="Center"/>
+                                    <Label x:Name="BookingsCountLabel" Text="0" FontSize="20" FontAttributes="Bold" TextColor="#1976D2" HorizontalOptions="Center"/>
+                                    <Label Text="Reservas" FontSize="12" TextColor="#666666" HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
+                            </Border>
+                            
+                            <Border Grid.Column="1" BackgroundColor="#F3E5F5" Padding="15" StrokeThickness="0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10"/>
+                                </Border.StrokeShape>
+                                <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                                    <Label Text="❤️" FontSize="24" HorizontalOptions="Center"/>
+                                    <Label x:Name="FavoritesCountLabel" Text="0" FontSize="20" FontAttributes="Bold" TextColor="#7B1FA2" HorizontalOptions="Center"/>
+                                    <Label Text="Favoritos" FontSize="12" TextColor="#666666" HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
+                            </Border>
+                            
+                            <Border Grid.Column="2" BackgroundColor="#E8F5E9" Padding="15" StrokeThickness="0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10"/>
+                                </Border.StrokeShape>
+                                <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                                    <Label Text="🌟" FontSize="24" HorizontalOptions="Center"/>
+                                    <Label x:Name="ReviewsCountLabel" Text="0" FontSize="20" FontAttributes="Bold" TextColor="#388E3C" HorizontalOptions="Center"/>
+                                    <Label Text="Reseñas" FontSize="12" TextColor="#666666" HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
+                            </Border>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+                
+            </VerticalStackLayout>
+        </ScrollView>
+        
+    </Grid>
+    </ContentPage.Content>
+</ContentPage>

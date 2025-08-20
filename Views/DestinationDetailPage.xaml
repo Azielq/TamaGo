@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TamaGo.Views.DestinationDetailPage"
+             x:Name="ThisPage"
+             Title="{Binding Destination.Name}">
+    
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+            
+            <!-- Header con imagen -->
+            <Grid RowDefinitions="300,*" BackgroundColor="{StaticResource BackgroundColor}">
+                
+                <!-- Imagen del destino -->
+                <Border Grid.Row="0" HeightRequest="300" Padding="0" StrokeThickness="0">
+                    <Grid BackgroundColor="#E8E8E8">
+                        
+                        <!-- Emoji como imagen placeholder -->
+                        <Label Text="{Binding Destination.CategoryEmoji}" 
+                               FontSize="120" 
+                               HorizontalOptions="Center" 
+                               VerticalOptions="Center"/>
+                        
+                        <!-- Botón de regreso -->
+                        <Button Text="←" 
+                                FontSize="24"
+                                BackgroundColor="White"
+                                TextColor="{StaticResource TextPrimaryColor}"
+                                WidthRequest="40"
+                                HeightRequest="40"
+                                CornerRadius="20"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Start"
+                                Margin="20"
+                                Command="{Binding BackCommand}"/>
+                        
+                        <!-- Botón de favorito -->
+                        <Button Text="{Binding Destination.IsFavorite, Converter={StaticResource FavoriteIconConverter}}" 
+                                FontSize="24"
+                                BackgroundColor="White"
+                                TextColor="{StaticResource SecondaryColor}"
+                                WidthRequest="40"
+                                HeightRequest="40"
+                                CornerRadius="20"
+                                HorizontalOptions="End"
+                                VerticalOptions="Start"
+                                Margin="20"
+                                Command="{Binding ToggleFavoriteCommand}"/>
+                        
+                    </Grid>
+                </Border>
+                
+            </Grid>
+            
+            <!-- Contenido principal -->
+            <VerticalStackLayout BackgroundColor="White" Padding="20" Spacing="20">
+                
+                <!-- Header de información -->
+                <VerticalStackLayout Spacing="10">
+                    
+                    <HorizontalStackLayout Spacing="10">
+                        <Border Style="{StaticResource CategoryBadgeStyle}">
+                            <Label Text="{Binding Destination.Category}" TextColor="White" FontSize="12"/>
+                        </Border>
+                    </HorizontalStackLayout>
+                    
+                    <Label Text="{Binding Destination.Name}" 
+                           FontSize="28" 
+                           FontAttributes="Bold" 
+                           TextColor="{StaticResource TextPrimaryColor}"/>
+                    
+                    <HorizontalStackLayout Spacing="15">
+                        <HorizontalStackLayout Spacing="5">
+                            <Label Text="⭐" FontSize="16"/>
+                            <Label Text="{Binding Destination.AverageRating, StringFormat='{0:F1}'}" 
+                                   TextColor="{StaticResource SecondaryColor}" 
+                                   FontSize="16" 
+                                   FontAttributes="Bold"/>
+                            <Label Text="{Binding Destination.ReviewCount, StringFormat='({0} reviews)'}" 
+                                   TextColor="{StaticResource TextMutedColor}" 
+                                   FontSize="14"/>
+                        </HorizontalStackLayout>
+                        
+                        <Label Text="•" TextColor="{StaticResource TextMutedColor}"/>
+                        
+                        <HorizontalStackLayout Spacing="5">
+                            <Label Text="📍" FontSize="14"/>
+                            <Label Text="{Binding Destination.Location}" 
+                                   TextColor="{StaticResource TextSecondaryColor}" 
+                                   FontSize="14"/>
+                        </HorizontalStackLayout>
+                    </HorizontalStackLayout>
+                    
+                </VerticalStackLayout>
+                
+                <!-- Descripción -->
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Descripción" 
+                           FontSize="18" 
+                           FontAttributes="Bold" 
+                           TextColor="{StaticResource TextPrimaryColor}"/>
+                    <Label Text="{Binding Destination.Description}" 
+                           FontSize="14" 
+                           TextColor="{StaticResource TextSecondaryColor}" 
+                           LineBreakMode="WordWrap"/>
+                </VerticalStackLayout>
+                
+                <!-- Tours disponibles -->
+                <VerticalStackLayout IsVisible="{Binding HasTours}" Spacing="15">
+                    <Label Text="Tours disponibles" 
+                           FontSize="18" 
+                           FontAttributes="Bold" 
+                           TextColor="{StaticResource TextPrimaryColor}"/>
+                    
+                    <CollectionView ItemsSource="{Binding Tours}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="15"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource CardStyle}">
+                                    
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        
+                                        <!-- Información del tour -->
+                                        <VerticalStackLayout Grid.Column="0" Spacing="8">
+                                            
+                                            <Label Text="{Binding Title}" 
+                                                   FontSize="16" 
+                                                   FontAttributes="Bold" 
+                                                   TextColor="{StaticResource TextPrimaryColor}"/>
+                                            
+                                            <Label Text="{Binding Description}" 
+                                                   FontSize="14" 
+                                                   TextColor="{StaticResource TextSecondaryColor}" 
+                                                   MaxLines="2"/>
+                                            
+                                            <HorizontalStackLayout Spacing="15">
+                                                <HorizontalStackLayout Spacing="5">
+                                                    <Label Text="⏱️" FontSize="12"/>
+                                                    <Label Text="{Binding FormattedDuration}" 
+                                                           FontSize="12" 
+                                                           TextColor="{StaticResource TextMutedColor}"/>
+                                                </HorizontalStackLayout>
+                                                
+                                                <HorizontalStackLayout Spacing="5">
+                                                    <Label Text="{Binding DifficultyEmoji}" FontSize="12"/>
+                                                    <Label Text="{Binding DifficultyLevel}" 
+                                                           FontSize="12" 
+                                                           TextColor="{StaticResource TextMutedColor}"/>
+                                                </HorizontalStackLayout>
+                                                
+                                                <HorizontalStackLayout Spacing="5">
+                                                    <Label Text="👥" FontSize="12"/>
+                                                    <Label Text="{Binding MaxCapacity, StringFormat='Max {0}'}" 
+                                                           FontSize="12" 
+                                                           TextColor="{StaticResource TextMutedColor}"/>
+                                                </HorizontalStackLayout>
+                                            </HorizontalStackLayout>
+                                            
+                                        </VerticalStackLayout>
+                                        
+                                        <!-- Precio y botón -->
+                                        <VerticalStackLayout Grid.Column="1" 
+                                                           HorizontalOptions="End" 
+                                                           VerticalOptions="Center" 
+                                                           Spacing="10">
+                                            
+                                            <VerticalStackLayout HorizontalOptions="End">
+                                                <Label Text="{Binding FormattedPrice}" 
+                                                       FontSize="20" 
+                                                       FontAttributes="Bold" 
+                                                       TextColor="{StaticResource PrimaryColor}" 
+                                                       HorizontalOptions="End"/>
+                                                <Label Text="por persona" 
+                                                       FontSize="10" 
+                                                       TextColor="{StaticResource TextMutedColor}" 
+                                                       HorizontalOptions="End"/>
+                                            </VerticalStackLayout>
+                                            
+                                            <Button Text="Ver detalles" 
+                                                    FontSize="12"
+                                                    Style="{StaticResource PrimaryButtonStyle}"
+                                                    HeightRequest="35"
+                                                    WidthRequest="100"
+                                                    Clicked="OnTourDetailsClicked"
+                                                    CommandParameter="{Binding .}"/>
+
+                                            <Button Text="Reservar" 
+                                                    FontSize="12"
+                                                    Style="{StaticResource PrimaryButtonStyle}"
+                                                    HeightRequest="35"
+                                                    WidthRequest="100"
+                                                    Clicked="OnReserveTourClicked"
+                                                    CommandParameter="{Binding .}"/>
+                                            
+                                        </VerticalStackLayout>
+                                        
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+                
+                <!-- Estado sin tours -->
+                <VerticalStackLayout IsVisible="{Binding NoTours}" 
+                                   HorizontalOptions="Center" 
+                                   Spacing="15" 
+                                   Padding="20">
+                    <Label Text="🚧" FontSize="60" HorizontalOptions="Center"/>
+                    <Label Text="No hay tours disponibles" 
+                           FontSize="16" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center" 
+                           TextColor="{StaticResource TextSecondaryColor}"/>
+                    <Label Text="Este destino no tiene tours programados actualmente" 
+                           FontSize="14" 
+                           HorizontalOptions="Center" 
+                           TextColor="{StaticResource TextMutedColor}"/>
+                </VerticalStackLayout>
+                
+                <!-- Reviews -->
+                <VerticalStackLayout IsVisible="{Binding HasReviews}" Spacing="15">
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Reseñas" 
+                               FontSize="18" 
+                               FontAttributes="Bold" 
+                               TextColor="{StaticResource TextPrimaryColor}"/>
+                        <Label Text="{Binding Destination.ReviewCount, StringFormat='({0})'}" 
+                               FontSize="16" 
+                               TextColor="{StaticResource TextMutedColor}" 
+                               VerticalOptions="End"/>
+                    </HorizontalStackLayout>
+                    
+                    <CollectionView ItemsSource="{Binding TopReviews}" 
+                                    HeightRequest="200">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource CardStyle}" BackgroundColor="{StaticResource BackgroundColor}">
+                                    <VerticalStackLayout Spacing="8">
+                                        
+                                        <HorizontalStackLayout Spacing="10">
+                                            <HorizontalStackLayout Spacing="2">
+                                                <Label Text="⭐" FontSize="14"/>
+                                                <Label Text="{Binding Rating}" 
+                                                       FontSize="14" 
+                                                       FontAttributes="Bold" 
+                                                       TextColor="{StaticResource SecondaryColor}"/>
+                                            </HorizontalStackLayout>
+                                            
+                                            <Label Text="{Binding ReviewDate, StringFormat='{0:dd/MM/yyyy}'}" 
+                                                   FontSize="12" 
+                                                   TextColor="{StaticResource TextMutedColor}" 
+                                                   VerticalOptions="End"/>
+                                        </HorizontalStackLayout>
+                                        
+                                        <Label Text="{Binding ReviewText}" 
+                                               FontSize="14" 
+                                               TextColor="{StaticResource TextSecondaryColor}" 
+                                               MaxLines="3"/>
+                                        
+                                    </VerticalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+                
+            </VerticalStackLayout>
+            
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>

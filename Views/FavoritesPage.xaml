@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TamaGo.Views.FavoritesPage"
+             Title="Mis Favoritos"
+             BackgroundColor="#F5F5F5">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*,Auto">
+        
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" Padding="20,10" BackgroundColor="White">
+            <Label Text="Mis Favoritos" 
+                   FontSize="24" 
+                   FontAttributes="Bold"
+                   TextColor="#333333"
+                   HorizontalOptions="Center"/>
+            <Label Text="Tus destinos y tours guardados" 
+                   FontSize="14" 
+                   TextColor="#666666"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+        
+        <!-- Loading Indicator -->
+        <ActivityIndicator x:Name="LoadingIndicator" 
+                           Grid.Row="1"
+                           IsVisible="False" 
+                           IsRunning="False" 
+                           Color="#5865F2"
+                           VerticalOptions="Center"/>
+        
+        <!-- Contenido principal -->
+        <ScrollView Grid.Row="1" x:Name="MainContent">
+            <VerticalStackLayout Spacing="20" Padding="20">
+                
+                <!-- Estado vacío -->
+                <Border x:Name="EmptyState" 
+                        BackgroundColor="White" 
+                        Padding="40" 
+                        StrokeThickness="0"
+                        IsVisible="False">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="20" HorizontalOptions="Center">
+                        <Label Text="💔" FontSize="80" HorizontalOptions="Center"/>
+                        <Label Text="No tienes favoritos aún" 
+                               FontSize="20" 
+                               FontAttributes="Bold" 
+                               TextColor="#333333" 
+                               HorizontalOptions="Center"/>
+                        <Label Text="Explora destinos y tours increíbles, y guarda tus favoritos tocando el corazón ❤️" 
+                               FontSize="14" 
+                               TextColor="#666666" 
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"/>
+                        <Button Text="Explorar Destinos"
+                                BackgroundColor="#5865F2"
+                                TextColor="White"
+                                CornerRadius="25"
+                                HeightRequest="50"
+                                WidthRequest="180"
+                                HorizontalOptions="Center"
+                                Clicked="OnExploreDestinationsClicked"/>
+                    </VerticalStackLayout>
+                </Border>
+                
+                <!-- Lista de destinos favoritos -->
+                <VerticalStackLayout x:Name="FavoritesContent" IsVisible="False">
+                    
+                    <!-- Sección de Destinos Favoritos -->
+                    <VerticalStackLayout x:Name="FavoriteDestinationsSection" Spacing="15">
+                        <Label Text="🌟 Destinos Favoritos" 
+                               FontSize="18" 
+                               FontAttributes="Bold" 
+                               TextColor="#333333"
+                               Margin="0,0,0,10"/>
+                        
+                        <CollectionView x:Name="FavoriteDestinationsCollectionView" 
+                                        ItemsSource="{Binding FavoriteDestinations}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BackgroundColor="White" 
+                                            Padding="15" 
+                                            Margin="0,5" 
+                                            StrokeThickness="0">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="15"/>
+                                        </Border.StrokeShape>
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnDestinationTapped" CommandParameter="{Binding .}"/>
+                                        </Border.GestureRecognizers>
+                                        
+                                        <Grid ColumnDefinitions="80,*,50" ColumnSpacing="15">
+                                            <!-- Icono del destino -->
+                                            <Border Grid.Column="0" 
+                                                    BackgroundColor="#F0F0F0" 
+                                                    HeightRequest="80"
+                                                    StrokeThickness="0">
+                                                <Border.StrokeShape>
+                                                    <RoundRectangle CornerRadius="10"/>
+                                                </Border.StrokeShape>
+                                                <Label Text="{Binding CategoryEmoji}" 
+                                                       FontSize="30" 
+                                                       HorizontalOptions="Center" 
+                                                       VerticalOptions="Center"/>
+                                            </Border>
+                                            
+                                            <!-- Información del destino -->
+                                            <VerticalStackLayout Grid.Column="1" 
+                                                                 VerticalOptions="Center" 
+                                                                 Spacing="8">
+                                                <Label Text="{Binding Name}" 
+                                                       FontSize="18" 
+                                                       FontAttributes="Bold" 
+                                                       TextColor="#333333"/>
+                                                
+                                                <Label Text="{Binding Description}" 
+                                                       FontSize="14" 
+                                                       TextColor="#666666" 
+                                                       MaxLines="2"
+                                                       LineBreakMode="TailTruncation"/>
+                                                
+                                                <HorizontalStackLayout Spacing="5">
+                                                    <Label Text="📍" FontSize="12"/>
+                                                    <Label Text="{Binding Location}" 
+                                                           FontSize="12" 
+                                                           TextColor="#5865F2"/>
+                                                </HorizontalStackLayout>
+                                            </VerticalStackLayout>
+                                            
+                                            <!-- Botón de remover favorito -->
+                                            <Button Grid.Column="2" 
+                                                    Text="❤️" 
+                                                    FontSize="20"
+                                                    BackgroundColor="Transparent"
+                                                    TextColor="#FF4444"
+                                                    BorderWidth="0"
+                                                    WidthRequest="40"
+                                                    HeightRequest="40"
+                                                    CornerRadius="20"
+                                                    Clicked="OnRemoveFavoriteClicked"
+                                                    CommandParameter="{Binding .}"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                    
+                </VerticalStackLayout>
+                
+            </VerticalStackLayout>
+        </ScrollView>
+        
+        <!-- Bottom Navigation -->
+        <Grid Grid.Row="2" 
+              BackgroundColor="White" 
+              ColumnDefinitions="*,*,*,*" 
+              HeightRequest="70"
+              Padding="5">
+            
+            <!-- Tours -->
+            <VerticalStackLayout Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnToursTapped"/>
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="🚌" FontSize="24" TextColor="#999999"/>
+                <Label Text="Tours" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+            
+            <!-- Destinos -->
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnDestinationsTapped"/>
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="🌴" FontSize="24" TextColor="#999999"/>
+                <Label Text="Destinos" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+            
+            <!-- Inicio -->
+            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnHomeTapped"/>
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="🏠" FontSize="24" TextColor="#999999"/>
+                <Label Text="Inicio" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+            
+            <!-- Cuenta -->
+            <VerticalStackLayout Grid.Column="3" VerticalOptions="Center" HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnAccountTapped"/>
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="👤" FontSize="24" TextColor="#999999"/>
+                <Label Text="Cuenta" FontSize="10" TextColor="#999999"/>
+            </VerticalStackLayout>
+        </Grid>
+        
+    </Grid>
+    </ContentPage.Content>
+</ContentPage>

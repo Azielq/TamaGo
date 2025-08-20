@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TamaGo.Views.TourDetailPage"
+             Title="{Binding Tour.Title}">
+    
+    <Grid RowDefinitions="*,Auto">
+        
+        <!-- Contenido principal -->
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="0">
+                
+                <!-- Header con imagen -->
+                <Grid RowDefinitions="250,*" BackgroundColor="{StaticResource BackgroundColor}">
+                    
+                    <!-- Imagen del tour -->
+                    <Border Grid.Row="0" HeightRequest="250" Padding="0" StrokeThickness="0">
+                        <Grid BackgroundColor="#E8E8E8">
+                            
+                            <!-- Emoji como imagen placeholder -->
+                            <Label Text="{Binding Tour.Destination.CategoryEmoji}" 
+                                   FontSize="100" 
+                                   HorizontalOptions="Center" 
+                                   VerticalOptions="Center"/>
+                            
+                            <!-- Botón de regreso -->
+                            <Button Text="←" 
+                                    FontSize="24"
+                                    BackgroundColor="White"
+                                    TextColor="{StaticResource TextPrimaryColor}"
+                                    WidthRequest="40"
+                                    HeightRequest="40"
+                                    CornerRadius="20"
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Start"
+                                    Margin="20"
+                                    Command="{Binding BackCommand}"/>
+                            
+                            <!-- Badge de dificultad -->
+                            <Border Style="{StaticResource CategoryBadgeStyle}" 
+                                    HorizontalOptions="End" 
+                                    VerticalOptions="Start" 
+                                    Margin="20"
+                                    BackgroundColor="{StaticResource SecondaryColor}">
+                                <HorizontalStackLayout Spacing="5">
+                                    <Label Text="{Binding Tour.DifficultyEmoji}" FontSize="12"/>
+                                    <Label Text="{Binding Tour.DifficultyLevel}" TextColor="White" FontSize="12"/>
+                                </HorizontalStackLayout>
+                            </Border>
+                            
+                        </Grid>
+                    </Border>
+                    
+                </Grid>
+                
+                <!-- Contenido principal -->
+                <VerticalStackLayout BackgroundColor="White" Padding="20" Spacing="25">
+                    
+                    <!-- Header de información -->
+                    <VerticalStackLayout Spacing="15">
+                        
+                        <Label Text="{Binding Tour.Title}" 
+                               FontSize="24" 
+                               FontAttributes="Bold" 
+                               TextColor="{StaticResource TextPrimaryColor}"/>
+                        
+                        <HorizontalStackLayout Spacing="15">
+                            <HorizontalStackLayout Spacing="5">
+                                <Label Text="📍" FontSize="14"/>
+                                <Label Text="{Binding Tour.Destination.Name}" 
+                                       TextColor="{StaticResource TextSecondaryColor}" 
+                                       FontSize="14"/>
+                            </HorizontalStackLayout>
+                            
+                            <Label Text="•" TextColor="{StaticResource TextMutedColor}"/>
+                            
+                            <HorizontalStackLayout Spacing="5">
+                                <Label Text="⏱️" FontSize="14"/>
+                                <Label Text="{Binding Tour.FormattedDuration}" 
+                                       TextColor="{StaticResource TextSecondaryColor}" 
+                                       FontSize="14"/>
+                            </HorizontalStackLayout>
+                            
+                            <Label Text="•" TextColor="{StaticResource TextMutedColor}"/>
+                            
+                            <HorizontalStackLayout Spacing="5">
+                                <Label Text="👥" FontSize="14"/>
+                                <Label Text="{Binding Tour.MaxCapacity, StringFormat='Max {0}'}" 
+                                       TextColor="{StaticResource TextSecondaryColor}" 
+                                       FontSize="14"/>
+                            </HorizontalStackLayout>
+                        </HorizontalStackLayout>
+                        
+                        <!-- Precio destacado -->
+                        <HorizontalStackLayout Spacing="10">
+                            <Label Text="{Binding Tour.FormattedPrice}" 
+                                   FontSize="32" 
+                                   FontAttributes="Bold" 
+                                   TextColor="{StaticResource PrimaryColor}"/>
+                            <Label Text="por persona" 
+                                   FontSize="16" 
+                                   TextColor="{StaticResource TextMutedColor}" 
+                                   VerticalOptions="End"/>
+                        </HorizontalStackLayout>
+                        
+                    </VerticalStackLayout>
+                    
+                    <!-- Descripción -->
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Descripción" 
+                               FontSize="18" 
+                               FontAttributes="Bold" 
+                               TextColor="{StaticResource TextPrimaryColor}"/>
+                        <Label Text="{Binding Tour.Description}" 
+                               FontSize="14" 
+                               TextColor="{StaticResource TextSecondaryColor}" 
+                               LineBreakMode="WordWrap"/>
+                    </VerticalStackLayout>
+                    
+                    <!-- Qué incluye -->
+                    <VerticalStackLayout IsVisible="{Binding HasIncludes}" Spacing="10">
+                        <Label Text="¿Qué incluye?" 
+                               FontSize="18" 
+                               FontAttributes="Bold" 
+                               TextColor="{StaticResource TextPrimaryColor}"/>
+                        <Label Text="{Binding Tour.Includes}" 
+                               FontSize="14" 
+                               TextColor="{StaticResource TextSecondaryColor}" 
+                               LineBreakMode="WordWrap"/>
+                    </VerticalStackLayout>
+                    
+                    <!-- Requisitos -->
+                    <VerticalStackLayout IsVisible="{Binding HasRequirements}" Spacing="10">
+                        <Label Text="Requisitos" 
+                               FontSize="18" 
+                               FontAttributes="Bold" 
+                               TextColor="{StaticResource TextPrimaryColor}"/>
+                        <Label Text="{Binding Tour.Requirements}" 
+                               FontSize="14" 
+                               TextColor="{StaticResource TextSecondaryColor}" 
+                               LineBreakMode="WordWrap"/>
+                    </VerticalStackLayout>
+                    
+                    <!-- Selección de fecha y personas -->
+                    <VerticalStackLayout Spacing="20">
+                        <Label Text="Reservar tu experiencia" 
+                               FontSize="18" 
+                               FontAttributes="Bold" 
+                               TextColor="{StaticResource TextPrimaryColor}"/>
+                        
+                        <!-- Fecha del tour -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Fecha del tour" 
+                                   FontSize="14" 
+                                   FontAttributes="Bold" 
+                                   TextColor="{StaticResource TextPrimaryColor}"/>
+                            <DatePicker x:Name="TourDatePicker" 
+                                       Date="{Binding SelectedDate, Mode=TwoWay}"
+                                       MinimumDate="{Binding MinDate}"
+                                       BackgroundColor="White"
+                                       TextColor="{StaticResource TextPrimaryColor}"
+                                       FontSize="16"
+                                       Format="dd/MM/yyyy"/>
+                        </VerticalStackLayout>
+                        
+                        <!-- Número de personas -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Número de personas" 
+                                   FontSize="14" 
+                                   FontAttributes="Bold" 
+                                   TextColor="{StaticResource TextPrimaryColor}"/>
+                            <HorizontalStackLayout Spacing="15" HorizontalOptions="Center">
+                                <Button Text="−" 
+                                        FontSize="20"
+                                        WidthRequest="40"
+                                        HeightRequest="40"
+                                        CornerRadius="20"
+                                        BackgroundColor="{StaticResource BorderColor}"
+                                        TextColor="{StaticResource TextPrimaryColor}"
+                                        Command="{Binding DecreasePeopleCommand}"/>
+                                
+                                <Label Text="{Binding PeopleCount}" 
+                                       FontSize="20" 
+                                       FontAttributes="Bold" 
+                                       TextColor="{StaticResource TextPrimaryColor}" 
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"
+                                       WidthRequest="40"/>
+                                
+                                <Button Text="+" 
+                                        FontSize="20"
+                                        WidthRequest="40"
+                                        HeightRequest="40"
+                                        CornerRadius="20"
+                                        Style="{StaticResource PrimaryButtonStyle}"
+                                        Command="{Binding IncreasePeopleCommand}"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                        
+                        <!-- Disponibilidad -->
+                        <Border IsVisible="{Binding ShowAvailability}" 
+                                Style="{StaticResource CardStyle}" 
+                                BackgroundColor="{StaticResource BackgroundColor}">
+                            <VerticalStackLayout Spacing="5">
+                                <HorizontalStackLayout Spacing="10">
+                                    <Label Text="📅" FontSize="16"/>
+                                    <Label Text="Disponibilidad" 
+                                           FontSize="14" 
+                                           FontAttributes="Bold" 
+                                           TextColor="{StaticResource TextPrimaryColor}"/>
+                                </HorizontalStackLayout>
+                                <Label Text="{Binding AvailabilityText}" 
+                                       FontSize="14" 
+                                       TextColor="{Binding AvailabilityColor}"/>
+                            </VerticalStackLayout>
+                        </Border>
+                        
+                        <!-- Total -->
+                        <Border Style="{StaticResource CardStyle}" BackgroundColor="{StaticResource PrimaryColor}">
+                            <HorizontalStackLayout Spacing="15">
+                                <VerticalStackLayout HorizontalOptions="StartAndExpand">
+                                    <Label Text="Total" 
+                                           FontSize="16" 
+                                           FontAttributes="Bold" 
+                                           TextColor="White"/>
+                                    <Label Text="{Binding PeopleCount, StringFormat='{0} persona(s)'}" 
+                                           FontSize="12" 
+                                           TextColor="White"/>
+                                </VerticalStackLayout>
+                                
+                                <Label Text="{Binding TotalPrice, StringFormat='${0:F0}'}" 
+                                       FontSize="24" 
+                                       FontAttributes="Bold" 
+                                       TextColor="White" 
+                                       VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Border>
+                        
+                    </VerticalStackLayout>
+                    
+                </VerticalStackLayout>
+                
+            </VerticalStackLayout>
+        </ScrollView>
+        
+        <!-- Botón de reserva fijo -->
+        <Border Grid.Row="1" 
+                BackgroundColor="White" 
+                Padding="20,15" 
+                StrokeThickness="0">
+            <Button Text="{Binding BookButtonText}" 
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    HeightRequest="50"
+                    FontSize="16"
+                    Command="{Binding BookTourCommand}"
+                    IsEnabled="{Binding CanBook}"/>
+        </Border>
+        
+        <!-- Loading Overlay -->
+        <Grid Grid.RowSpan="2" 
+              x:Name="LoadingOverlay" 
+              BackgroundColor="#80000000" 
+              IsVisible="{Binding IsLoading}">
+            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="15">
+                <ActivityIndicator IsRunning="True" Color="White" HeightRequest="40" WidthRequest="40"/>
+                <Label Text="{Binding LoadingMessage}" 
+                       TextColor="White" 
+                       FontSize="16" 
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Grid>
+        
+    </Grid>
+    
+</ContentPage>
